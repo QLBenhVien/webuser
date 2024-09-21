@@ -1,0 +1,86 @@
+.container {
+  background: #22668f;
+  height: auto;
+}
+
+.main {
+  height: 100%;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Căn đều nội dung */
+}
+
+.box-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Không để logo thu nhỏ */
+}
+
+.Logo {
+  height: 30%;
+  max-width: 100%; /* Đảm bảo logo không vượt quá chiều rộng */
+}
+
+.title {
+  font-size: 16px;
+  margin-left: 12px;
+  color: white;
+  white-space: nowrap; /* Tránh chữ bị ngắt dòng */
+}
+
+.navigation {
+  width: 100%;
+}
+
+.navigation ul {
+  display: flex;
+  justify-content: space-around; /* Căn đều giữa các mục */
+  flex-wrap: wrap; /* Đảm bảo các mục xuống dòng nếu không đủ chỗ */
+  padding: 0;
+}
+
+.navigation ul li {
+  list-style: none;
+  margin: 10px 0;
+}
+
+.navigation ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Media Queries cho các màn hình nhỏ */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column; /* Chuyển đổi sang dạng cột */
+    align-items: center;
+    flex-wrap: wrap; /* Giúp phần tử xuống dòng khi màn hình nhỏ */
+  }
+
+  .title {
+    font-size: 18px;
+    margin-left: 0; /* Xóa khoảng cách trái trên màn hình nhỏ */
+  }
+
+  .navigation ul {
+    justify-content: center; /* Đảm bảo các mục căn giữa trên màn hình nhỏ */
+  }
+
+  .navigation ul li a {
+    font-size: 14px; /* Giảm kích thước chữ */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 16px; /* Kích thước nhỏ hơn cho tiêu đề */
+  }
+
+  .navigation ul li a {
+    font-size: 12px; /* Kích thước nhỏ hơn cho menu */
+  }
+}
