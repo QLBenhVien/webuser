@@ -2,6 +2,7 @@ import React from 'react';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom'; // Đảm bảo đã nhập Link
 
+
 function TrangChu() {
   return (
     <header className="header">

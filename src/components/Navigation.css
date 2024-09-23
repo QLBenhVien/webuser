@@ -1,3 +1,5 @@
+/* Navigation.css */
+
 .container {
   background: #22668f;
   height: auto;
@@ -5,10 +7,10 @@
 
 .main {
   height: 100%;
-  padding: 0px 20px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Căn đều nội dung */
+  justify-content: space-between; /* Căn đều nội dung giữa logo và menu */
 }
 
 .box-logo {
@@ -18,31 +20,32 @@
 }
 
 .Logo {
-  height: 30%;
+  height: 40px; /* Điều chỉnh kích thước logo */
   max-width: 100%; /* Đảm bảo logo không vượt quá chiều rộng */
 }
 
 .title {
-  font-size: 16px;
+  font-size: 18px;
   margin-left: 12px;
   color: white;
   white-space: nowrap; /* Tránh chữ bị ngắt dòng */
 }
 
 .navigation {
-  width: 100%;
+  /* Không cần width: 100% */
+  flex-grow: 1; /* Để navigation chiếm không gian còn lại */
+  margin-left: 20px; /* Khoảng cách giữa logo và menu */
 }
 
 .navigation ul {
   display: flex;
-  justify-content: space-around; /* Căn đều giữa các mục */
-  flex-wrap: wrap; /* Đảm bảo các mục xuống dòng nếu không đủ chỗ */
-  padding: 0;
+  justify-content: space-between; /* Căn giữa các mục menu */
+  gap: 20px; /* Khoảng cách giữa các mục */
+ 
 }
 
 .navigation ul li {
   list-style: none;
-  margin: 10px 0;
 }
 
 .navigation ul li a {
@@ -50,6 +53,20 @@
   color: #fff;
   font-weight: 400;
   font-size: 16px;
+  cursor: pointer;
+  padding: 8px 12px; /* Tăng khu vực click */
+  transition: background 0.3s; /* Hiệu ứng chuyển đổi khi hover */
+}
+
+.navigation ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px; /* Bo góc cho hiệu ứng hover */
+}
+
+/* Biểu tượng người dùng nếu có */
+.user-icon {
+  color: #fff;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 
@@ -64,14 +81,27 @@
   .title {
     font-size: 18px;
     margin-left: 0; /* Xóa khoảng cách trái trên màn hình nhỏ */
+    margin-top: 10px; /* Thêm khoảng cách trên */
+  }
+
+  .navigation {
+    margin-left: 0;
+    margin-top: 10px;
   }
 
   .navigation ul {
     justify-content: center; /* Đảm bảo các mục căn giữa trên màn hình nhỏ */
+    flex-wrap: wrap;
+    gap: 10px; /* Khoảng cách giữa các mục */
   }
 
   .navigation ul li a {
     font-size: 14px; /* Giảm kích thước chữ */
+    padding: 6px 10px; /* Giảm padding */
+  }
+
+  .user-icon {
+    margin-top: 10px; /* Thêm khoảng cách nếu cần */
   }
 }
 
@@ -82,5 +112,6 @@
 
   .navigation ul li a {
     font-size: 12px; /* Kích thước nhỏ hơn cho menu */
+    padding: 4px 8px; /* Giảm padding hơn nữa */
   }
 }
