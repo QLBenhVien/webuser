@@ -26,7 +26,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/trangchu" element={<TrangChu />} />
-          <Route path="/datkham" element={<DatKham />} />
+          <Route path="/datkham" element={<TaiKhoanUpdate />} />
           <Route path="/gioithieu" element={<Gioithieu />} />
           <Route path="/bacsi" element={<Bacsi />} />
           <Route path="/lienhe" element={<LienHe />} />

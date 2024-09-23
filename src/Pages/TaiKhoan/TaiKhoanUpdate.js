@@ -11,15 +11,18 @@ function TaiKhoanUpdate() {
     phone: '',
   });
 
-    const handleCancel = () => {
+  const handleCancel = () => {
     // Chuyển hướng đến trang khác
     alert('Không biết làm') // Thay đổi '/another-page' thành đường dẫn bạn muốn
-    };
+  };
 
-    const handleSave = () => {
+  const handleSave = () => {
     // Logic cho nút Lưu thay đổi
     alert('Không biết làm')
-    };
+  };
+  const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+  };
 
   return (
     <div className="profile-container">
@@ -48,35 +51,35 @@ function TaiKhoanUpdate() {
 
           <div className="info">
             <div className="info-item">
-              <span className="label">Họ và tên</span>
-              <span className="value">{user.name}</span>
+              <label className="label">Họ và tên</label>
+              <input type="text" className="value" value={user.name} onChange={(e) => updateUser({ ...user, name: e.target.value })} />
             </div>
-            <hr/>
+            <hr />
             <div className="info-item">
-              <span className="label">Email</span>
-              <span className="value">{user.email}</span>
+              <label className="label">Email</label>
+              <input type="email" className="value" value={user.email} onChange={(e) => updateUser({ ...user, email: e.target.value })} />
             </div>
-            <hr/>
+            <hr />
             <div className="info-item">
-              <span className="label">Giới tính</span>
-              <span className="value">{user.gender || '--'}</span>
+              <label className="label">Giới tính</label>
+              <input type="text" className="value" value={user.gender || ''} onChange={(e) => updateUser({ ...user, gender: e.target.value })} />
             </div>
-            <hr/>
+            <hr />
             <div className="info-item">
-              <span className="label">Địa chỉ</span>
-              <span className="value">{user.address || '--'}</span>
+              <label className="label">Địa chỉ</label>
+              <input type="text" className="value" value={user.address || ''} onChange={(e) => updateUser({ ...user, address: e.target.value })} />
             </div>
-            <hr/>
+            <hr />
             <div className="info-item">
-              <span className="label">Số điện thoại</span>
-              <span className="value">{user.phone || '--'}</span>
+              <label className="label">Số điện thoại</label>
+              <input type="tel" className="value" value={user.phone || ''} onChange={(e) => updateUser({ ...user, phone: e.target.value })} />
             </div>
-            <hr/>
+            <hr />
           </div>
         </div>
         <div className="button-container">
-        <button className="cancel-button" onClick={handleCancel}>Hủy</button>
-        <button className="save-button" onClick={handleSave}>Lưu thay đổi</button>
+          <button className="cancel-button" onClick={handleCancel}>Hủy</button>
+          <button className="save-button" onClick={handleSave}>Lưu thay đổi</button>
         </div>
 
       </div>
