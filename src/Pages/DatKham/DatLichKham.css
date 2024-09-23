@@ -1,0 +1,251 @@
+/* src/components/DatLichKham.css */
+
+/* Toàn cục */
+.body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(179, 227, 253);
+}
+
+/* Header */
+.header {
+    display: flex;
+    color: rgb(255, 255, 255);
+    justify-content: space-between;
+    background-color: rgb(45, 102, 145);
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li {
+    margin-left: 20px;
+}
+
+.nav-list li a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 16px;
+    display: block;
+}
+
+.nav-list li a:hover {
+    background-color: rgb(9, 106, 181);
+    border-radius: 5px;
+}
+
+.user-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+.breadcrumb {
+    text-align: right;
+    padding: 10px 65px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Main Content */
+.main {
+    padding: 20px 65px;
+    text-align: center;
+}
+
+.main-title {
+    padding-left: 55px;
+    text-align: left;
+    margin-bottom: 20px;
+    color: #3740be;
+}
+
+.choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 0 10px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #555;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+.search-icon.hover {
+    color: #000;
+}
+
+/* Trang 2 */
+.dangky-khambenh2 {
+    padding: 20px 65px;
+    text-align: center;
+}
+
+.dangky-khambenh2 h2 {
+    margin-bottom: 20px;
+}
+
+.calendar {
+    display: flex;
+       margin: 20px 0; /* Tạo khoảng cách giữa các phần */
+       justify-content: center;
+       align-items: center;
+   }
+   label {
+       flex: 1;
+      padding-left: 20px;
+      padding-top: 20px;
+       text-align: right;
+   }   
+   select {
+       flex: 2;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+   }
+   
+   table {
+       border-collapse: collapse;
+       width: 90%;
+   }
+   
+   th, td {
+       border: 1px solid #000000;
+       padding: 20px;
+       text-align: center;
+   }
+   
+   th {
+       background-color:  rgb(9, 106, 181);
+   
+   }
+    
+   td {
+       background-color:  rgb(255, 255, 255);
+   
+   }
+   .thongtin_benhnhan {
+    display: flex;
+    flex-direction: column; /* Căn theo cột */
+    background-color: white;
+    justify-content: center;
+    align-items: flex-start; /* Căn trái */
+    width: 85%;
+    padding: 30px;
+  
+    border: 1px solid black;
+    margin: 20px auto; /* Tạo khoảng cách giữa các phần và căn giữa ngang */
+  
+}
+
+.form-group-b {
+    display: flex;
+    justify-content: space-between; /* Căn đều giữa các phần tử */
+    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+    padding-left: 200px;
+    margin-bottom: 15px;
+}
+
+.form-group-a {
+    display: flex;
+    justify-content: flex-start; /* Căn bên trái */
+    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+    margin-bottom: 15px;
+    padding-left: 200px;
+}
+
+
+   label {
+       margin-right: 10px;
+       flex-basis: 30%; /* Chiều rộng của label */
+   }
+   input, select, textarea {
+       flex-basis: 80%; /* Chiều rộng của input, select, textarea */
+   }
+ 
+
+   button {
+    background-color: #929ad4; /* Màu nền của button */
+    color: white; /* Màu chữ */
+    border: none; /* Không có đường viền */
+    padding: 10px 20px; /* Khoảng cách trong button */
+    text-align: center; /* Căn giữa chữ */
+    text-decoration: none; /* Không gạch chân */
+    display: inline-block; /* Hiển thị inline */
+    font-size: 16px; /* Kích thước chữ */
+    margin: 0 15px; /* Khoảng cách bên trái và bên phải */
+    cursor: pointer; /* Con trỏ khi hover */
+    border-radius: 5px; /* Bo góc */
+   
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+    margin-top: 20px; /* Tạo khoảng cách phía trên */
+}
+.button_dangky{
+    padding-left: 400px;
+}
+
+/* Căn giữa nút button trong container */
+.container {
+    display: flex; /* Sử dụng Flexbox */
+    justify-content: center; /* Căn giữa nội dung */
+    gap: 30px; /* Tạo khoảng cách giữa các nút */
+}
+
+   
+   button:hover {
+       background-color: #082b93; /* Màu nền khi hover */
+   }
+
+   .section-title{
+    padding-left: 55px;
+    text-align: left;
+    margin-bottom: 20px;
+    color: #3740be;
+   }
