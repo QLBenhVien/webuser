@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Hoso.css'; // Import file CSS
+import './HosoAdd.css'; // Import file CSS
 
 
-function Hoso() {
+function HosoAdd() {
   // State quản lý dữ liệu form
   const [formData, setFormData] = useState({
     tenBenhNhan: '',
@@ -34,7 +34,7 @@ function Hoso() {
 
   return (
     <div className="outer-container">
-      <h2 className="form-title">HỒ SƠ BỆNH ÁN</h2>
+      <h2 className="form-title">TẠO HỒ SƠ BỆNH ÁN</h2>
       <form className="form-container" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Tên bệnh nhân</label>
@@ -86,14 +86,11 @@ function Hoso() {
         <p>Ngày tạo hồ sơ: </p> {/* Hiển thị ngày tạo từ cơ sở dữ liệu */}
         <p className="note">Lưu ý: Những mục được đánh dấu * vui lòng không để trống</p>
         
-        <div className="button-group">
-            <button type="submit" className="submit-button">Chỉnh sửa</button>
-            <button type="button" className="submit-button">Đóng</button>
-        </div>
+        <button type="submit" className="submit-button">Tạo</button>
       </form>
     </div>
   );
 }
 
-export default Hoso;
+export default HosoAdd;
 

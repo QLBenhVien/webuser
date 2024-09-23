@@ -9,6 +9,11 @@ import Gioithieu from "./Pages/GioiThieu/Gioithieu";
 import Bacsi from "./Pages/BacSi/Bacsi";
 import LienHe from "./Pages/LienHe/LienHe";
 import Tintuc from "./Pages/TinTuc/Tintuc";
+import HosoAdd from "./Pages/HoSoBA/HosoAdd"
+import Hoso from "./Pages/HoSoBA/Hoso"
+import TaiKhoan from "./Pages/TaiKhoan/TaiKhoan"
+import TaiKhoanUpdate from "./Pages/TaiKhoan/TaiKhoanUpdate"
+
 
 function App() {
   return (
