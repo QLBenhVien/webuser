@@ -9,6 +9,11 @@ import Gioithieu from "./Pages/GioiThieu/Gioithieu";
 import Bacsi from "./Pages/BacSi/Bacsi";
 import LienHe from "./Pages/LienHe/LienHe";
 import Tintuc from "./Pages/TinTuc/Tintuc";
+import HosoAdd from "./Pages/HoSoBA/HosoAdd"
+import Hoso from "./Pages/HoSoBA/Hoso"
+import TaiKhoan from "./Pages/TaiKhoan/TaiKhoan"
+import TaiKhoanUpdate from "./Pages/TaiKhoan/TaiKhoanUpdate"
+
 
 function App() {
   return (
@@ -21,7 +26,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/trangchu" element={<TrangChu />} />
-          <Route path="/datkham" element={<DatKham />} />
+          <Route path="/datkham" element={<TaiKhoanUpdate />} />
           <Route path="/gioithieu" element={<Gioithieu />} />
           <Route path="/bacsi" element={<Bacsi />} />
           <Route path="/lienhe" element={<LienHe />} />
