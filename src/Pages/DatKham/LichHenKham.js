@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./DatKham.css"; // Kết nối với file CSS
+import "./LichHenKham.css"; // Kết nối với file CSS
 
 
 
-const DatKham = () => {
+const LichHenKham = () => {
   const [activeTab, setActiveTab] = useState("upcoming"); // Quản lý tab hiện tại
 
   // Dữ liệu giả lịch hẹn
@@ -121,4 +121,4 @@ const DatKham = () => {
   );
 };
 
-export default DatKham;
+export default LichHenKham;
