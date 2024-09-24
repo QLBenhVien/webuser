@@ -78,7 +78,7 @@ const Navigation = () => {
                   navigate("/login");
                 }}
               >
-                Đăng nhập
+                Dang nhap
               </a>
             </li>
           </ul>
