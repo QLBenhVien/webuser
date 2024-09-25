@@ -5,6 +5,7 @@ import {
   Routes,
   BrowserRouter as Router,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import Register from "./Pages/Login/Register";
 import TrangChu from "./Pages/TrangChu/TrangChu";
@@ -26,21 +27,27 @@ import TaiKhoanUpdate from "./Pages/TaiKhoan/TaiKhoanUpdate";
 
 // icon flag
 import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import PrintIcon from "@mui/icons-material/Print";
-import ShareIcon from "@mui/icons-material/Share";
-
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import ListIcon from "@mui/icons-material/List";
+import MailIcon from "@mui/icons-material/Mail";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 const actions = [
-  { icon: <FileCopyIcon />, name: "Copy" },
-  { icon: <SaveIcon />, name: "Save" },
-  { icon: <PrintIcon />, name: "Print" },
-  { icon: <ShareIcon />, name: "Share" },
+  {
+    icon: <PersonOutlineIcon />,
+    name: "Thông tin cá nhân",
+    path: "thongtincanhan",
+  },
+  { icon: <MailIcon />, name: "Kết quả khám bệnh", path: "ketqua" },
+  { icon: <ListIcon />, name: "Lịch khám của tôi", path: "lichkham" },
+  { icon: <NotificationsIcon />, name: "Thông báo", path: "thongbao" },
+  { icon: <LibraryBooksIcon />, name: "Hồ sơ bệnh án", path: "hoso" },
 ];
 
 function App() {
+  const navigate = useNavigate();
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";
@@ -52,13 +59,14 @@ function App() {
         <SpeedDial
           ariaLabel="SpeedDial basic example"
           sx={{ position: "absolute", bottom: 16, right: 16 }}
-          icon={<SpeedDialIcon />}
+          icon={<AccountCircleIcon />}
         >
           {actions.map((action) => (
             <SpeedDialAction
               key={action.name}
               icon={action.icon}
               tooltipTitle={action.name}
+              onClick={() => navigate(action.path)}
             />
           ))}
         </SpeedDial>
