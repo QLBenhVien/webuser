@@ -193,3 +193,13 @@ td {
     padding: 20px; /* Thêm padding cho phần này */
     border-radius: 10px; /* Bo góc cho phần đặt lịch */
 }
+
+
+.schedule-table td {
+    cursor: pointer; /* Đổi con trỏ chuột thành pointer khi hover */
+    transition: background-color 0.3s; /* Thêm hiệu ứng chuyển đổi màu nền */
+}
+
+.schedule-table td:hover {
+    background-color: #f0f0f0; /* Màu nền khi hover */
+}

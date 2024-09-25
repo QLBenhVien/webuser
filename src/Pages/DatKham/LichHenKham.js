@@ -1,22 +1,34 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./LichHenKham.css";
 
 const LichHenKham = () => {
-  const navigate = useNavigate(); // Khởi tạo useNavigate
+  const navigate = useNavigate();
+  const location = useLocation(); // Khai báo location
 
-  // Dữ liệu giả lịch hẹn với các thông tin bổ sung
-  const appointments = [
-    {
-      id: 186,
-      patientName: "Phùng Bảo Khang",
-      date: "03/09/2024",
-      status: "Chưa duyệt",
-      shift: "Buổi sáng", // Ca khám
-      doctor: "Bác sĩ Nguyễn Văn A", // Bác sĩ
-      symptoms: "Đau đầu, sốt nhẹ" // Triệu chứng
-    },
-  ];
+  // Khởi tạo state cho danh sách lịch hẹn
+  const [appointments, setAppointments] = useState([]);
+
+  // Nhận thông tin lịch hẹn mới từ state và cập nhật danh sách
+  useEffect(() => {
+    const newAppointment = location.state?.appointment;
+    if (newAppointment) {
+      setAppointments((prev) => {
+        const existingIds = prev.map(app => app.id);
+        if (!existingIds.includes(newAppointment.id)) {
+          return [...prev, newAppointment]; // Thêm lịch hẹn mới
+        }
+        return prev; // Không thêm nếu ID đã tồn tại
+      });
+    }
+  }, [location.state]);
+  
+
+  const handleCancelAppointment = (id) => {
+    // Xóa lịch hẹn khỏi danh sách
+    setAppointments((prev) => prev.filter((appointment) => appointment.id !== id));
+    alert(`Lịch hẹn với ID: ${id} đã bị hủy.`);
+  };
 
   return (
     <div className="App">
@@ -45,12 +57,13 @@ const LichHenKham = () => {
                     <th>Ngày đăng ký</th>
                     <th>Tình trạng</th>
                     <th>Xem chi tiết</th>
+                    <th>Hủy lịch khám</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {appointments.map((appointment) => (
+                  {appointments.map((appointment, index) => (
                     <tr key={appointment.id}>
-                      <td>{appointment.id}</td>
+                      <td>{index + 1}</td> {/* Hiển thị STT */}
                       <td>{appointment.patientName}</td>
                       <td>{appointment.date}</td>
                       <td>{appointment.status}</td>
@@ -58,10 +71,17 @@ const LichHenKham = () => {
                         <button
                           onClick={() => {
                             // Điều hướng đến trang chi tiết và truyền dữ liệu
-                            navigate("/chitietlichkham", { state: { appointment } });
+                            navigate("/chitietlichkham", { state: { appointment, index } });
                           }}
                         >
                           Xem
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handleCancelAppointment(appointment.id)}
+                        >
+                          Hủy
                         </button>
                       </td>
                     </tr>

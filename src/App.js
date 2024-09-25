@@ -33,7 +33,7 @@ function App() {
           <Route path="/bacsi" element={<Bacsi />} />
           <Route path="/lienhe" element={<ChiTietLichKham />} />
           <Route path="/tintuc" element={<LichHenKham />} />
-          <Route path="/" element={<LichHenKham />} />
+        
           <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
           
         </Routes>

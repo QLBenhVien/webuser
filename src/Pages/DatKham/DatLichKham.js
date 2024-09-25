@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import './DatLichKham.css';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const DatLichKham = () => {
+  const navigate = useNavigate(); // Khởi tạo navigate
   const [time, setTime] = useState('');
   const [clinic, setClinic] = useState('');
   const [doctor, setDoctor] = useState('');
@@ -86,20 +90,26 @@ const DatLichKham = () => {
       alert('Vui lòng điền đầy đủ thông tin!');
       return;
     }
-    console.log('Đăng ký thành công với thông tin:', {
+  
+    // Ghi lại thông tin đăng ký
+    const appointmentData = {
+      id: new Date().getTime(), // Tạo ID duy nhất cho lịch hẹn
       patientName,
-      gender,
-      phone,
-      age,
-      address,
-      symptoms,
-      time,
+      date: time,
+      status: "Chưa duyệt",
       shift,
       doctor,
-      clinic,
-    });
+      symptoms,
+    };
+  
+    console.log('Đăng ký thành công với thông tin:', appointmentData);
     alert('Đăng ký thành công!');
+  
+    // Điều hướng đến trang LichHenKham với thông tin lịch hẹn
+    navigate('/tintuc', { state: { appointment: appointmentData } });
   };
+  
+  
 
   const handleCancel = () => {
     setPatientName('');
@@ -191,53 +201,57 @@ const DatLichKham = () => {
       </div>
 
       <div className="patient-info">
-        <h3>Thông tin bệnh nhân</h3>
-        <div className="form-group">
-          <label>Họ và tên:</label>
-          <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} placeholder="Nhập họ và tên" />
-        </div>
-        <div className="form-group">
-          <label>Giới tính:</label>
-          <select value={gender} onChange={(e) => setGender(e.target.value)}>
-            <option value="">Chọn giới tính</option>
-            <option value="Nam">Nam</option>
-            <option value="Nữ">Nữ</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Số điện thoại:</label>
-          <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Nhập số điện thoại" />
-        </div>
-        <div className="form-group">
-          <label>Tuổi:</label>
-          <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Nhập tuổi" />
-        </div>
-        <div className="form-group">
-          <label>Địa chỉ:</label>
-          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ" />
-        </div>
-        <div className="form-group">
-          <label>Ngày khám:</label>
-          <input type="text" value={time} readOnly />
-        </div>
-        <div className="form-group">
-          <label>Chuyên khoa:</label>
-          <input type="text" value={clinic} readOnly />
-        </div>
-        <div className="form-group">
-          <label>Ca khám:</label>
-          <input type="text" value={shift} readOnly />
-        </div>
-        <div className="form-group">
-          <label>Triệu chứng:</label>
-          <textarea value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="Nhập triệu chứng" />
-        </div>
-        <div className="button-container">
+  <h3>Thông tin bệnh nhân</h3>
+  <div className="form-group">
+    <label>Họ và tên:</label>
+    <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} placeholder="Nhập họ và tên" />
+  </div>
+  <div className="form-group">
+    <label>Giới tính:</label>
+    <select value={gender} onChange={(e) => setGender(e.target.value)}>
+      <option value="">Chọn giới tính</option>
+      <option value="Nam">Nam</option>
+      <option value="Nữ">Nữ</option>
+    </select>
+  </div>
+  <div className="form-group">
+    <label>Số điện thoại:</label>
+    <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Nhập số điện thoại" />
+  </div>
+  <div className="form-group">
+    <label>Tuổi:</label>
+    <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Nhập tuổi" />
+  </div>
+  <div className="form-group">
+    <label>Địa chỉ:</label>
+    <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ" />
+  </div>
+  <div className="form-group">
+    <label>Ngày khám:</label>
+    <input type="text" value={time} readOnly />
+  </div>
+  <div className="form-group">
+    <label>Chuyên khoa:</label>
+    <input type="text" value={clinic} readOnly />
+  </div>
+  <div className="form-group">
+    <label>Ca khám:</label>
+    <input type="text" value={shift} readOnly />
+  </div>
+  <div className="form-group">
+    <label>Bác sĩ:</label>
+    <input type="text" value={doctor} readOnly />
+  </div>
+  <div className="form-group">
+    <label>Triệu chứng:</label>
+    <textarea value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="Nhập triệu chứng" />
+  </div>
+  <div className="button-container">
     <button className="register-btn" onClick={handleRegister}>Đăng ký</button>
     <button className="cancel-btn" onClick={handleCancel}>Hủy</button>
+  </div>
 </div>
 
-      </div>
     </main>
   );
 };

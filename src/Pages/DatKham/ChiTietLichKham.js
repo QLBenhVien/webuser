@@ -1,10 +1,21 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './ChiTietLichKham.css'; // Import file CSS
 
 const ChiTietLichKham = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Khởi tạo navigate
   const { appointment } = location.state || {}; // Lấy dữ liệu lịch khám từ state
+
+  const handleCancelAppointment = () => {
+    // Xử lý hủy lịch
+    alert('Lịch hẹn đã bị hủy.');
+    // Bạn có thể thêm logic hủy lịch hẹn ở đây, như gửi yêu cầu đến server
+  };
+
+  const handleClose = () => {
+    navigate(-1); // Quay lại trang trước
+  };
 
   return (
     <div className="chitiet-container">
@@ -35,15 +46,17 @@ const ChiTietLichKham = () => {
             <label>Trạng thái:</label>
             <input type="text" value={appointment.status} readOnly />
           </div>
-          <div className="form-group">
-            <label>Địa điểm:</label>
-            <input type="text" placeholder="Nhập địa điểm" />
-          </div>
+         
           <div className="form-group">
             <label>Lưu ý:</label>
             <textarea readOnly>
               Vui lòng đến khám bệnh đúng thời hạn.
             </textarea>
+          </div>
+
+          <div className="button-container">
+  
+            <button type="button" className="close-btn" onClick={handleClose}>Đóng</button>
           </div>
         </form>
       ) : (
