@@ -82,23 +82,28 @@ body {
 .form-group label {
     margin-bottom: 5px;
     font-weight: bold; /* Đổi chữ thành đậm */
+    font-size: 16px; /* Kích thước chữ cho nhãn */
 }
 
 .form-group select,
-.form-group input {
+.form-group input,
+.form-group textarea { /* Bao gồm textarea để đồng nhất font */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px; /* Tăng kích thước chữ cho dễ đọc */
+    font-size: 16px; /* Kích thước chữ cho các trường nhập liệu */
+    font-family: Arial, Helvetica, sans-serif; /* Đặt font chữ cho các trường nhập liệu */
     transition: border 0.3s;
 }
 
 .form-group select:focus,
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     border: 1px solid #3740be; /* Đổi màu viền khi focus */
     outline: none;
 }
 
+/* Biểu tượng tìm kiếm */
 .search-icon {
     font-size: 24px;
     color: #555;
@@ -131,6 +136,7 @@ th, td {
 
 th {
     background-color: rgb(9, 106, 181);
+    color: white; /* Đổi màu chữ cho tiêu đề bảng */
 }
 
 td {
@@ -153,17 +159,23 @@ td {
     margin-bottom: 20px;
 }
 
+/* Nút bấm */
 .button-container {
     display: flex;
-    justify-content: center; /* Căn giữa các nút */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
     margin-top: 20px; /* Khoảng cách trên nút */
+    padding: 20px; /* Thêm padding để tạo khoảng cách cho các nút */
 }
 
-button {
+
+.register-btn, .cancel-btn {
+  
     background-color: #929ad4;
     color: white;
     border: none;
     padding: 10px 20px;
+ 
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
@@ -171,16 +183,13 @@ button {
     margin: 0 10px; /* Khoảng cách giữa các nút */
 }
 
-button:hover {
-    background-color: #082b93;
-}
-
-button:hover {
-    background-color: #082b93;
+.register-btn:hover, .cancel-btn:hover {
+    background-color: #082b93; /* Đổi màu nền khi hover */
 }
 
 /* Đặt lịch chính */
 .datlich-main {
     background-color: rgb(200, 200, 239);
+    padding: 20px; /* Thêm padding cho phần này */
+    border-radius: 10px; /* Bo góc cho phần đặt lịch */
 }
-

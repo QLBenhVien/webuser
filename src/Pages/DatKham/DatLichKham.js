@@ -12,7 +12,7 @@ const DatLichKham = () => {
   const [age, setAge] = useState('');
   const [address, setAddress] = useState('');
   const [symptoms, setSymptoms] = useState('');
-  const [shift, setShift] = useState(''); // Thêm state cho ca khám
+  const [shift, setShift] = useState('');
   const [schedule, setSchedule] = useState({
     'Thứ 2': {
       'Ca 1': '',
@@ -43,29 +43,75 @@ const DatLichKham = () => {
   const handleSearchClick = () => {
     if (time && clinic && doctor) {
       const updatedSchedule = { ...schedule };
-      updatedSchedule['Thứ 2']['Ca 1'] = doctor; // Cập nhật tên bác sĩ cho Thứ 2
-      updatedSchedule['Thứ 3']['Ca 1'] = doctor; // Cập nhật tên bác sĩ cho Thứ 3
+      updatedSchedule['Thứ 2']['Ca 1'] = doctor; // Cập nhật bác sĩ cho Thứ 2 Ca 1
+      updatedSchedule['Thứ 3']['Ca 1'] = doctor; // Cập nhật bác sĩ cho Thứ 3 Ca 1
       setSchedule(updatedSchedule);
     } else {
       alert('Vui lòng chọn Thời gian, Chuyên khoa và Bác sĩ trước.');
     }
   };
 
-  // Hàm xử lý khi nhấn vào tên bác sĩ trong lịch
   const handleDoctorClick = (day, shift) => {
     const selectedDoctor = schedule[day][shift];
     if (selectedDoctor) {
       setDoctor(selectedDoctor);
-      setShift(shift); // Lưu ca khám
-      setPatientName(''); // Reset các trường khác
-      setGender('');
-      setPhone('');
-      setAge('');
-      setAddress('');
-      setSymptoms('');
-      setTime(day); // Cập nhật ngày khám
-      setClinic('Chuyên khoa ABC'); // Cập nhật chuyên khoa
+      setShift(shift);
+      setPatientName('Phùng Bảo Khang');
+      setGender('Nam');
+      setPhone('0123456789');
+      setAge(19);
+      setAddress('Quận 8');
+      setTime(day);
+
+      // Cập nhật chuyên khoa dựa trên lựa chọn
+      switch (clinic) {
+        case 'phong_kham_1':
+          setClinic('Khoa Nhi');
+          break;
+        case 'phong_kham_2':
+          setClinic('Khoa Phụ sản');
+          break;
+        case 'phong_kham_3':
+          setClinic('Khoa Cấp Cứu');
+          break;
+        default:
+          setClinic('');
+          break;
+      }
     }
+  };
+
+  const handleRegister = () => {
+    if (!patientName || !gender || !phone || !age || !address || !time || !shift || !doctor || !clinic) {
+      alert('Vui lòng điền đầy đủ thông tin!');
+      return;
+    }
+    console.log('Đăng ký thành công với thông tin:', {
+      patientName,
+      gender,
+      phone,
+      age,
+      address,
+      symptoms,
+      time,
+      shift,
+      doctor,
+      clinic,
+    });
+    alert('Đăng ký thành công!');
+  };
+
+  const handleCancel = () => {
+    setPatientName('');
+    setGender('');
+    setPhone('');
+    setAge('');
+    setAddress('');
+    setSymptoms('');
+    setTime('');
+    setClinic('');
+    setDoctor('');
+    setShift('');
   };
 
   return (
@@ -144,12 +190,11 @@ const DatLichKham = () => {
         </table>
       </div>
 
-      {/* Form thông tin bệnh nhân */}
       <div className="patient-info">
         <h3>Thông tin bệnh nhân</h3>
         <div className="form-group">
-          <label>Họ và Tên:</label>
-          <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} />
+          <label>Họ và tên:</label>
+          <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} placeholder="Nhập họ và tên" />
         </div>
         <div className="form-group">
           <label>Giới tính:</label>
@@ -161,38 +206,37 @@ const DatLichKham = () => {
         </div>
         <div className="form-group">
           <label>Số điện thoại:</label>
-          <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Nhập số điện thoại" />
         </div>
         <div className="form-group">
           <label>Tuổi:</label>
-          <input type="number" value={age} onChange={(e) => setAge(e.target.value)} />
+          <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Nhập tuổi" />
         </div>
         <div className="form-group">
           <label>Địa chỉ:</label>
-          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ" />
         </div>
         <div className="form-group">
           <label>Ngày khám:</label>
-          <input type="date" value={time} onChange={(e) => setTime(e.target.value)} />
+          <input type="text" value={time} readOnly />
+        </div>
+        <div className="form-group">
+          <label>Chuyên khoa:</label>
+          <input type="text" value={clinic} readOnly />
         </div>
         <div className="form-group">
           <label>Ca khám:</label>
-          <input type="text" value={shift} readOnly /> {/* Hiển thị ca khám */}
-        </div>
-        <div className="form-group">
-          <label>Bác sĩ:</label>
-          <input type="text" value={doctor} readOnly />
+          <input type="text" value={shift} readOnly />
         </div>
         <div className="form-group">
           <label>Triệu chứng:</label>
-          <input type="text" value={symptoms} onChange={(e) => setSymptoms(e.target.value)} />
+          <textarea value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="Nhập triệu chứng" />
         </div>
-
-        {/* Thêm button-container ở đây */}
         <div className="button-container">
-          <button onClick={() => console.log('Đăng ký')}>Đăng ký</button>
-          <button onClick={() => console.log('Đóng')}>Đóng</button>
-        </div>
+    <button className="register-btn" onClick={handleRegister}>Đăng ký</button>
+    <button className="cancel-btn" onClick={handleCancel}>Hủy</button>
+</div>
+
       </div>
     </main>
   );

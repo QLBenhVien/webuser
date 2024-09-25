@@ -7,8 +7,12 @@ import Navigation from "./components/Navigation";
 import DatKham from "./Pages/DatKham/DatLichKham";
 import Gioithieu from "./Pages/GioiThieu/Gioithieu";
 import Bacsi from "./Pages/BacSi/Bacsi";
-import LienHe from "./Pages/LienHe/LienHe";
-import Tintuc from "./Pages/TinTuc/Tintuc";
+import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
+import LichHenKham from "./Pages/DatKham/LichHenKham";
+
+
+
+// Trong phần Routes
 
 
 
@@ -27,8 +31,11 @@ function App() {
           <Route path="/datkham" element={<DatKham />} />
           <Route path="/gioithieu" element={<Gioithieu />} />
           <Route path="/bacsi" element={<Bacsi />} />
-          <Route path="/lienhe" element={<LienHe />} />
-          <Route path="/tintuc" element={<Tintuc />} />
+          <Route path="/lienhe" element={<ChiTietLichKham />} />
+          <Route path="/tintuc" element={<LichHenKham />} />
+          <Route path="/" element={<LichHenKham />} />
+          <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
+          
         </Routes>
       </div>
     </Router>
