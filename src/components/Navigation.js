@@ -75,10 +75,13 @@ const Navigation = () => {
             <li>
               <a
                 onClick={() => {
+                  if (localStorage.getItem("token")) {
+                    localStorage.removeItem("token");
+                  }
                   navigate("/login");
                 }}
               >
-                Đăng nhập
+                {localStorage.getItem("token") ? "Đăng xuất" : "Đăng nhập"}
               </a>
             </li>
           </ul>
