@@ -24,6 +24,21 @@ import Hoso from "./Pages/HoSoBA/Hoso";
 import TaiKhoan from "./Pages/TaiKhoan/TaiKhoan";
 import TaiKhoanUpdate from "./Pages/TaiKhoan/TaiKhoanUpdate";
 
+// icon flag
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
+import FileCopyIcon from "@mui/icons-material/FileCopyOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import PrintIcon from "@mui/icons-material/Print";
+import ShareIcon from "@mui/icons-material/Share";
+
+const actions = [
+  { icon: <FileCopyIcon />, name: "Copy" },
+  { icon: <SaveIcon />, name: "Save" },
+  { icon: <PrintIcon />, name: "Print" },
+  { icon: <ShareIcon />, name: "Share" },
+];
 
 function App() {
   const location = useLocation();
@@ -33,6 +48,21 @@ function App() {
   return (
     <div>
       {!isAuthPage && <Navigation />}
+      {!isAuthPage && (
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          sx={{ position: "absolute", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+            />
+          ))}
+        </SpeedDial>
+      )}
       <Routes>
         {/* Routes cho login và register */}
         <Route path="/login" element={<Login />} />

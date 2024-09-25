@@ -37,7 +37,7 @@ const Login = () => {
       setOpen(true);
 
       // Xóa cờ đăng nhập thành công sau khi hiển thị thông báo
-      localStorage.removeItem("loginSuccess");
+      localStorage.removeItem("registerSuccess");
     }
   }, [navigate]);
 
