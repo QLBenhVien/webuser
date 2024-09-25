@@ -1,21 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css"; // Import CSS file
 import logo from "../../images/logo.png";
 import doctor from "../../images/doctor.png";
 import backgroundImage from "../../images/background_img.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false); // Trạng thái để mở hoặc đóng Snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(""); // Lưu tin nhắn của Snackbar
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // Đặt mức độ của Snackbar (success, error)
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleRegister = () => {
     navigate("/register");
   };
+
+  useEffect(() => {
+    console.log("check token");
+    if (localStorage.getItem("token")) {
+      navigate("/trangchu");
+    }
+    const isRegisterSuccess = localStorage.getItem("registerSuccess");
+
+    if (isRegisterSuccess === "true") {
+      setSnackbarMessage("Tạo tài khoản thành công !");
+      setSnackbarSeverity("success");
+      setOpen(true);
+
+      // Xóa cờ đăng nhập thành công sau khi hiển thị thông báo
+      localStorage.removeItem("loginSuccess");
+    }
+  }, [navigate]);
 
   const handleLogin = async () => {
     console.log(`email: ${email} | password: ${password}`);
@@ -27,41 +51,22 @@ const Login = () => {
 
       console.log(response);
       // Hiển thị thông báo thành công
-      toast(response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: { Bounce },
-      });
+      // setSnackbarMessage("Đăng nhập thành công!");
+      // setSnackbarSeverity("success");
+      // setOpen(true);
 
-      // luu data
-      // const data = JSON.stringify(response.data.data);
-      // console.log(data);
-
-      // localStorage.setItem("dataUser", data);
+      // Lưu token vào localStorage
       localStorage.setItem("token", response.data.data.accessToken);
+      localStorage.setItem("loginSuccess", "true");
       // Điều hướng sau khi đăng nhập thành công
       navigate("/trangchu");
     } catch (error) {
       console.log(error);
 
       // Hiển thị thông báo lỗi
-      toast(error.response.data.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+      setSnackbarMessage(error.response.data.errorMessage);
+      setSnackbarSeverity("error");
+      setOpen(true);
     }
   };
 
@@ -72,20 +77,18 @@ const Login = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <MuiAlert onClose={handleClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
+
       <div className="LeftContainer">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          transition={Bounce}
-        ></ToastContainer>
         <div className="Header">
           <img
             src={logo}
