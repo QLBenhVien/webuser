@@ -20,73 +20,82 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import HosoAdd from "./Pages/HoSoBA/HosoAdd";
 import Hoso from "./Pages/HoSoBA/Hoso";
-import TaiKhoan from "./Pages/TaiKhoan/TaiKhoan";
 import TaiKhoanUpdate from "./Pages/TaiKhoan/TaiKhoanUpdate";
+import Nav from "./components/Nav";
 
-// icon flag
-import SpeedDial from "@mui/material/SpeedDial";
-import SpeedDialAction from "@mui/material/SpeedDialAction";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import ListIcon from "@mui/icons-material/List";
-import MailIcon from "@mui/icons-material/Mail";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-const actions = [
-  {
-    icon: <PersonOutlineIcon />,
-    name: "Thông tin cá nhân",
-    path: "thongtincanhan",
-  },
-  { icon: <MailIcon />, name: "Kết quả khám bệnh", path: "ketqua" },
-  { icon: <ListIcon />, name: "Lịch khám của tôi", path: "lichkham" },
-  { icon: <NotificationsIcon />, name: "Thông báo", path: "thongbao" },
-  { icon: <LibraryBooksIcon />, name: "Hồ sơ bệnh án", path: "hoso" },
-];
+// // icon flag
+// import SpeedDial from "@mui/material/SpeedDial";
+// import SpeedDialAction from "@mui/material/SpeedDialAction";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import NotificationsIcon from "@mui/icons-material/Notifications";
+// import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+// import ListIcon from "@mui/icons-material/List";
+// import MailIcon from "@mui/icons-material/Mail";
+// import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+
+// const actions = [
+//   {
+//     icon: <PersonOutlineIcon />,
+//     name: "Thông tin cá nhân",
+//     path: "thongtincanhan",
+//   },
+//   { icon: <MailIcon />, name: "Kết quả khám bệnh", path: "ketqua" },
+//   { icon: <ListIcon />, name: "Lịch khám của tôi", path: "lichkham" },
+//   { icon: <NotificationsIcon />, name: "Thông báo", path: "thongbao" },
+//   { icon: <LibraryBooksIcon />, name: "Hồ sơ bệnh án", path: "hoso" },
+// ];
+
+const HoSoCaNhan = () => {
+  const location = useLocation();
+  const isUser =
+    location.pathname === "/hoso" ||
+    location.pathname === "/thongtincanhan" ||
+    location.pathname === "/ketqua" ||
+    location.pathname === "/lichkham" ||
+    location.pathname === "/thongbao";
+  return (
+    <div
+      style={{
+        display: "flex",
+        height: "100vh",
+        backgroundColor: "#f0f8ff",
+      }}
+    >
+      {isUser && (
+        <div style={{ flex: "3" }}>
+          <Nav />
+        </div>
+      )}
+      <div style={{ flex: "7" }}>
+        <Routes>
+          <Route path="/hoso" element={<Hoso />} />
+          <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
+        </Routes>
+      </div>
+    </div>
+  );
+};
 
 function App() {
-  const navigate = useNavigate();
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";
-
   return (
     <div>
       {!isAuthPage && <Navigation />}
-      {!isAuthPage && (
-        <SpeedDial
-          ariaLabel="SpeedDial basic example"
-          sx={{ position: "absolute", bottom: 16, right: 16 }}
-          icon={<AccountCircleIcon />}
-        >
-          {actions.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              onClick={() => navigate(action.path)}
-            />
-          ))}
-        </SpeedDial>
-      )}
+
       <Routes>
-        {/* Routes cho login và register */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* Các Routes khác */}
-        <Route path="/trangchu" element={<TrangChu />} />
-        <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
+        <Route path="/" element={<TrangChu />} />
         <Route path="/gioithieu" element={<Gioithieu />} />
         <Route path="/bacsi" element={<Bacsi />} />
         <Route path="/lienhe" element={<LienHe />} />
         <Route path="/tintuc" element={<Tintuc />} />
-        <Route path="/hoso" element={<Hoso />} />
-        <Route path="/themhoso" element={<HosoAdd />} />
-        <Route path="/taikhoan" element={<TaiKhoan />} />
         <Route path="/datkham" element={<DatKham />} />
       </Routes>
+      <HoSoCaNhan />
     </div>
   );
 }
