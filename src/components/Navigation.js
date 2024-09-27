@@ -176,7 +176,9 @@ const Navigation = () => {
                     </Menu>
                   </>
                 ) : (
-                  "Đăng nhập"
+                  <li>
+                    <a href="/login">Đăng nhập</a>
+                  </li>
                 )}
               </a>
             </li>

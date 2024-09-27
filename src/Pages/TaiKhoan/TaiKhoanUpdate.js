@@ -88,6 +88,7 @@ function TaiKhoanUpdate() {
         navigate("/login");
 
         localStorage.setItem("token-hethan", "true");
+        localStorage.removeItem("token");
       }
       console.log(error.response.status);
     }
