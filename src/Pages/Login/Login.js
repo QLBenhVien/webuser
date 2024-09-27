@@ -1,19 +1,80 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css"; // Import CSS file
 import logo from "../../images/logo.png";
 import doctor from "../../images/doctor.png";
 import backgroundImage from "../../images/background_img.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false); // Trạng thái để mở hoặc đóng Snackbar
+  const [snackbarMessage, setSnackbarMessage] = useState(""); // Lưu tin nhắn của Snackbar
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // Đặt mức độ của Snackbar (success, error)
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleRegister = () => {
     navigate("/register");
   };
 
-  const handleLogin = () => {
-    navigate("/trangchu");
+  useEffect(() => {
+    console.log("check token");
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+    const isRegisterSuccess = localStorage.getItem("registerSuccess");
+    const token = localStorage.getItem("token-hethan");
+    if (isRegisterSuccess === "true") {
+      setSnackbarMessage("Tạo tài khoản thành công !");
+      setSnackbarSeverity("success");
+      setOpen(true);
+
+      // Xóa cờ đăng nhập thành công sau khi hiển thị thông báo
+      localStorage.removeItem("registerSuccess");
+    }
+    if (token) {
+      setSnackbarMessage("Phiên kết thúc, yêu cầu đăng nhập lại !");
+      setSnackbarSeverity("error");
+      setOpen(true);
+
+      localStorage.removeItem("token-hethan");
+    }
+  }, [navigate]);
+
+  const handleLogin = async () => {
+    console.log(`email: ${email} | password: ${password}`);
+    try {
+      const response = await axios.post("http://localhost:8080/login", {
+        email: email,
+        password: password,
+      });
+
+      console.log(response);
+      // Hiển thị thông báo thành công
+      // setSnackbarMessage("Đăng nhập thành công!");
+      // setSnackbarSeverity("success");
+      // setOpen(true);
+
+      // Lưu token vào localStorage
+      localStorage.setItem("token", response.data.data.accessToken);
+      localStorage.setItem("loginSuccess", "true");
+      // Điều hướng sau khi đăng nhập thành công
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+
+      // Hiển thị thông báo lỗi
+      setSnackbarMessage(error.response.data.errorMessage);
+      setSnackbarSeverity("error");
+      setOpen(true);
+    }
   };
 
   return (
@@ -23,6 +84,17 @@ const Login = () => {
         backgroundImage: `url(${backgroundImage})`,
       }}
     >
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <MuiAlert onClose={handleClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
+
       <div className="LeftContainer">
         <div className="Header">
           <img
@@ -39,14 +111,19 @@ const Login = () => {
           <h2>Đăng Nhập</h2>
           <input
             type="text"
-            placeholder="Nhập tên đăng nhập"
+            placeholder="Nhập email"
             className="input"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
           <input
             type="password"
             placeholder="Nhập mật khẩu"
             className="input"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
+
           <div className="boxbutton">
             <div
               style={{

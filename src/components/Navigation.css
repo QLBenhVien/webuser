@@ -38,6 +38,8 @@
   justify-content: space-around; /* Căn đều giữa các mục */
   flex-wrap: wrap; /* Đảm bảo các mục xuống dòng nếu không đủ chỗ */
   padding: 0;
+  margin-left: 3rem;
+  align-items: center;
 }
 
 .navigation ul li {
@@ -51,6 +53,11 @@
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
+  transition: all ease-in-out 0.5s;
+}
+
+.navigation ul li a:hover {
+  color: #ccc;
 }
 
 /* Media Queries cho các màn hình nhỏ */
@@ -83,4 +90,14 @@
   .navigation ul li a {
     font-size: 12px; /* Kích thước nhỏ hơn cho menu */
   }
+
+}
+
+#fade-menu .menu-item {
+  font-weight: bold;
+  transition: all ease-in-out 0.3s;
+  color: #22668f;
+}
+#fade-menu .menu-item:hover {
+  color: #1d7fbc;
 }

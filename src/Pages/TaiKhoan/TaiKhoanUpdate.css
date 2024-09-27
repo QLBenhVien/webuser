@@ -1,0 +1,134 @@
+.profile-container {
+  display: flex;
+  height: auto;
+  position: relative;
+  background-color: #f0f8ff;
+  padding: 1% 2%;
+  overflow-y: hidden;
+}
+
+/* Small sidebar list in top-left */
+
+/* Right Content */
+.content {
+  flex: 1;
+  background-color: #f0f8ff;
+}
+
+.account-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #5f686e;
+}
+
+/* Personal Info Section */
+.personal-info {
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 2rem 2rem 2rem 2rem;
+}
+
+/* Header with Avatar and Edit Button */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #22668f;
+  border-radius: 2rem 2rem 0 0;
+}
+
+.avatar-section {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+}
+
+/* Avatar Circle */
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.chinhsua {
+  position: relative;
+  display: flex;
+  align-items: center;
+  top: 0;
+  margin-right: 2%;
+  margin-top: -3%;
+}
+
+.lb_chinhsua {
+  color: #fff;
+  margin-right: 10px;
+  transition: all ease-in-out 0.5s;
+  cursor: pointer;
+}
+.lb_chinhsua:hover {
+  color: #ccc;
+}
+
+/* Info Section */
+.info {
+  padding: 2% 5%;
+}
+
+.info-item {
+  /* margin-bottom: 1%; */
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.value {
+  display: block;
+  color: #333;
+  font-size: 16px;
+  border: none;
+}
+input:focus {
+  outline: none; /* Loại bỏ outline mặc định */
+  border: none; /* Đổi màu border khi nhấn vào */
+}
+
+.button-container {
+  display: flex;
+  gap: 2rem; /* Khoảng cách giữa các nút */
+  justify-content: center;
+  margin: 20px 0px;
+}
+
+.cancel-button {
+  background-color: transparent; /* Không có màu nền */
+  border: 1px solid #22668f; /* Viền màu xanh biển */
+  color: #22668f; /* Màu chữ xanh biển */
+  padding: 10px 20px; /* Khoảng cách trong nút */
+  cursor: pointer; /* Con trỏ tay khi hover */
+  border-radius: 2rem;
+}
+
+.cancel-button:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Màu nền nhẹ khi hover */
+}
+
+.save-button {
+  background-color: #22668f; /* Nền màu xanh biển */
+  border: none;
+  border-radius: 2rem;
+  color: white; /* Màu chữ trắng */
+  padding: 10px 20px; /* Khoảng cách trong nút */
+  cursor: pointer; /* Con trỏ tay khi hover */
+}
+
+.save-button:hover {
+  background-color: #0056b3; /* Nền tối hơn khi hover */
+}

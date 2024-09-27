@@ -1,0 +1,74 @@
+.outer-container {
+  padding-right: 5rem;
+}
+
+.form-title {
+  color: #206690;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.form-container {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+label {
+  font-size: 0.9rem;
+  flex: 0.5;
+}
+
+input,
+textarea {
+  flex: 2;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.form-group input:focus {
+  border: 1px solid #20668e;
+}
+.form-group textarea:focus {
+  border: 1px solid #20668e;
+}
+
+.button-group {
+  display: flex; /* Ensure the buttons are in a row */
+  justify-content: flex-end; /* Align the buttons to the right */
+  gap: 10px; /* Add space between the buttons */
+  margin-top: 15px; /* Add space above the button group */
+  flex-wrap: nowrap; /* Prevent buttons from wrapping to the next line */
+}
+
+.submit-button {
+  padding: 1rem 1rem;
+  background-color: #20668e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.note {
+  color: red;
+}

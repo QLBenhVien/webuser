@@ -1,28 +1,47 @@
-import React from 'react';
-import { FaUser } from 'react-icons/fa';
-import { Link } from 'react-router-dom'; // Đảm bảo đã nhập Link
 
+import React, { useState, useEffect } from "react";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
-function TrangChu() {
+const TrangChu = () => {
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  useEffect(() => {
+    // Kiểm tra nếu có thông báo đăng nhập thành công
+    const isLoginSuccess = localStorage.getItem("loginSuccess");
+
+    if (isLoginSuccess === "true") {
+      setSnackbarMessage("Đăng nhập thành công!");
+      setSnackbarSeverity("success");
+      setOpen(true);
+
+      // Xóa cờ đăng nhập thành công sau khi hiển thị thông báo
+      localStorage.removeItem("loginSuccess");
+    }
+  }, []);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <header className="header">
-      <div className="logo">
-        <img src={process.env.PUBLIC_URL + '/lg.png'} alt="Logo" />
-        <span>Phòng khám UMC</span>
-      </div>
-      <nav>
-        <ul className="nav-list">
-          <li><Link to="/">Trang chủ</Link></li>
-          <li><Link to="#about">Giới thiệu</Link></li>
-          <li><Link to="#team">Đội ngũ y - bác sĩ</Link></li>
-          <li><Link to="/datlich">Đặt lịch khám</Link></li> 
-          <li><Link to="#contact">Liên hệ</Link></li>
-          <li><Link to="#news">Tin tức</Link></li>
-        </ul>
-      </nav>
-      <FaUser className="user-icon" />
-    </header>
+    <div>
+      <h1>Trang chủ</h1>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <MuiAlert onClose={handleClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
+    </div>
   );
-}
+};
 
 export default TrangChu;
