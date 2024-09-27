@@ -16,12 +16,10 @@ import Bacsi from "./Pages/BacSi/Bacsi";
 import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
 import LichHenKham from "./Pages/DatKham/LichHenKham";
 
-
+import Tintuc from "./Pages/TinTuc/Tintuc";
+import LienHe from "./Pages/LienHe/LienHe";
 
 // Trong phần Routes
-
-
-
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -70,7 +68,6 @@ const HoSoCaNhan = () => {
 
       <div style={{ flex: "7" }}>
         <Routes>
-
           <Route path="/hoso" element={<Hoso />} />
           <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
         </Routes>
@@ -107,7 +104,6 @@ function App() {
     </div>
   );
 }
-
 
 export default function AppWrapper() {
   return (
