@@ -10,11 +10,18 @@ import {
 import Register from "./Pages/Login/Register";
 import TrangChu from "./Pages/TrangChu/TrangChu";
 import Navigation from "./components/Navigation";
-import DatKham from "./Pages/DatKham/DatKham";
+import DatKham from "./Pages/DatKham/DatLichKham";
 import Gioithieu from "./Pages/GioiThieu/Gioithieu";
 import Bacsi from "./Pages/BacSi/Bacsi";
-import LienHe from "./Pages/LienHe/LienHe";
-import Tintuc from "./Pages/TinTuc/Tintuc";
+import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
+import LichHenKham from "./Pages/DatKham/LichHenKham";
+
+
+
+// Trong phần Routes
+
+
+
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -63,6 +70,7 @@ const HoSoCaNhan = () => {
 
       <div style={{ flex: "7" }}>
         <Routes>
+
           <Route path="/hoso" element={<Hoso />} />
           <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
         </Routes>
@@ -99,6 +107,7 @@ function App() {
     </div>
   );
 }
+
 
 export default function AppWrapper() {
   return (

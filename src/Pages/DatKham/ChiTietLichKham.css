@@ -1,0 +1,70 @@
+/* ChiTietLichKham.css */
+
+.chitiet-container {
+  width: 80%;
+  margin: 20px auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chitiet-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group textarea {
+  resize: none;
+  height: 80px;
+}
+
+input[readonly], textarea[readonly] {
+  background-color: #f0f0f0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  margin-top: 20px; /* Khoảng cách trên nút */
+  padding: 20px; /* Thêm padding để tạo khoảng cách cho các nút */
+}
+
+
+.register-btn, .close-btn {
+
+  background-color: #929ad4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin: 0 10px; /* Khoảng cách giữa các nút */
+}
+
+.register-btn:hover, .close-btn:hover {
+  background-color: #082b93; /* Đổi màu nền khi hover */
+}

@@ -1,0 +1,147 @@
+/* src/components/LichHenKham.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #cadaf0;
+    margin: 0;
+}
+.header {
+    display: flex;
+    justify-content: space-between; /* Giữ khoảng cách giữa các phần tử */
+    align-items: center;
+    background-color: #172487;
+    padding: 10px 20px;
+    color: white;
+}
+
+.navbar {
+    flex-grow: 1; /* Cho phép navbar chiếm không gian còn lại */
+    display: flex; /* Đặt navbar thành flex để dễ căn chỉnh */
+    justify-content: center; /* Căn giữa các mục */
+}
+
+.navbar ul {
+    list-style-type: none;
+    justify-content: space-between;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.header-right span {
+    margin-right: 10px;
+}
+.navbar a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #ffffff; /* Màu chữ */
+    text-transform: uppercase; /* Chuyển đổi chữ thường thành chữ in hoa */
+}
+
+.navbar a:hover {
+    color: #007bff; /* Màu khi hover */
+}
+
+
+  
+.sidebar {
+    width: 200px;
+    background-color: #ffffff;
+    margin: 30px;
+    padding: 20px;
+    border-radius: 10px; /* Bo tròn các góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Bóng đổ nhẹ */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 0;
+    text-transform: uppercase; /* Chuyển đổi chữ thường thành chữ in hoa */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+.sidebar ul li:hover {
+    background-color: #e0e0e0; /* Màu nền khi hover */
+    cursor: pointer; /* Thay đổi con trỏ chuột thành tay khi hover */
+}
+
+
+.sidebar ul li.active {
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+}
+
+.main-content {
+    margin-left: 100px;
+    padding: 20px;
+    padding-left: 50px;
+    h2{
+        padding-left: 30px;
+        color: #5a7dca;
+    }
+}
+
+.tabs {
+    margin-top: 20px;
+    padding-left: 30px;
+    display: flex;
+    gap: 70px;
+    align-items: center;
+
+}
+
+.tabs button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px; /* Bo tròn các nút */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+.tabs button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.tabs button:hover {
+    background-color: #e0e0e0;
+}
+
+.appointment-list {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px; /* Bo tròn bảng */
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center; /* Căn giữa nội dung */
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+}
