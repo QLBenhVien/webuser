@@ -27,10 +27,10 @@ const Login = () => {
   useEffect(() => {
     console.log("check token");
     if (localStorage.getItem("token")) {
-      navigate("/trangchu");
+      navigate("/");
     }
     const isRegisterSuccess = localStorage.getItem("registerSuccess");
-
+    const token = localStorage.getItem("token-hethan");
     if (isRegisterSuccess === "true") {
       setSnackbarMessage("Tạo tài khoản thành công !");
       setSnackbarSeverity("success");
@@ -38,6 +38,11 @@ const Login = () => {
 
       // Xóa cờ đăng nhập thành công sau khi hiển thị thông báo
       localStorage.removeItem("registerSuccess");
+    }
+    if (token) {
+      setSnackbarMessage("Phiên kết thúc, yêu cầu đăng nhập lại !");
+      setSnackbarSeverity("error");
+      setOpen(true);
     }
   }, [navigate]);
 
@@ -59,7 +64,7 @@ const Login = () => {
       localStorage.setItem("token", response.data.data.accessToken);
       localStorage.setItem("loginSuccess", "true");
       // Điều hướng sau khi đăng nhập thành công
-      navigate("/trangchu");
+      navigate("/");
     } catch (error) {
       console.log(error);
 
