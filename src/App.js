@@ -48,12 +48,7 @@ import Nav from "./components/Nav";
 
 const HoSoCaNhan = () => {
   const location = useLocation();
-  const isUser =
-    location.pathname === "/hoso" ||
-    location.pathname === "/thongtincanhan" ||
-    location.pathname === "/ketqua" ||
-    location.pathname === "/lichkham" ||
-    location.pathname === "/thongbao";
+
   return (
     <div
       style={{
@@ -62,11 +57,10 @@ const HoSoCaNhan = () => {
         backgroundColor: "#f0f8ff",
       }}
     >
-      {isUser && (
-        <div style={{ flex: "3" }}>
-          <Nav />
-        </div>
-      )}
+      <div style={{ flex: "3" }}>
+        <Nav />
+      </div>
+
       <div style={{ flex: "7" }}>
         <Routes>
           <Route path="/hoso" element={<Hoso />} />
@@ -81,6 +75,12 @@ function App() {
   const location = useLocation();
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/register";
+  const isUser =
+    location.pathname === "/hoso" ||
+    location.pathname === "/thongtincanhan" ||
+    location.pathname === "/ketqua" ||
+    location.pathname === "/lichkham" ||
+    location.pathname === "/thongbao";
   return (
     <div>
       {!isAuthPage && <Navigation />}
@@ -95,7 +95,7 @@ function App() {
         <Route path="/tintuc" element={<Tintuc />} />
         <Route path="/datkham" element={<DatKham />} />
       </Routes>
-      <HoSoCaNhan />
+      {isUser && <HoSoCaNhan />}
     </div>
   );
 }

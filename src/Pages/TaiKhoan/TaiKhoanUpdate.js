@@ -84,14 +84,12 @@ function TaiKhoanUpdate() {
       // setSnackbarSeverity("success");
       // setOpen(true);
     } catch (error) {
-      if (error.response.data.status === "401") {
+      if (error.response.status === 401) {
         navigate("/login");
-        localStorage.setItem("token-hethan", true);
+
+        localStorage.setItem("token-hethan", "true");
       }
-      setSnackbarMessage(error.response.data.message);
-      setSnackbarSeverity("error");
-      setOpen(true);
-      console.log(error);
+      console.log(error.response.status);
     }
   };
 

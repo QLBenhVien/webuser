@@ -43,6 +43,8 @@ const Login = () => {
       setSnackbarMessage("Phiên kết thúc, yêu cầu đăng nhập lại !");
       setSnackbarSeverity("error");
       setOpen(true);
+
+      localStorage.removeItem("token-hethan");
     }
   }, [navigate]);
 

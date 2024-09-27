@@ -92,11 +92,11 @@
   }
 }
 
-.menu-item {
+#fade-menu .menu-item {
   font-weight: bold;
   transition: all ease-in-out 0.3s;
   color: #22668f;
 }
-.menu-item:hover {
+#fade-menu .menu-item:hover {
   color: #1d7fbc;
 }
