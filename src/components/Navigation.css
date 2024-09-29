@@ -1,41 +1,41 @@
 .container {
-  background: #22668f;
-  height: auto;
+  background: #22668f !important;
+  height: auto !important;
 }
 
 .main {
-  height: 100%;
-  padding: 0px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Căn đều nội dung */
+  height: 100% !important;
+  padding: 0px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important; /* Căn đều nội dung */
 }
 
 .box-logo {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0; /* Không để logo thu nhỏ */
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important; /* Không để logo thu nhỏ */
 }
 
 .Logo {
-  height: 30%;
-  max-width: 100%; /* Đảm bảo logo không vượt quá chiều rộng */
+  height: 30% !important;
+  max-width: 100% !important; /* Đảm bảo logo không vượt quá chiều rộng */
 }
 
 .title {
-  font-size: 16px;
-  margin-left: 12px;
-  color: white;
-  white-space: nowrap; /* Tránh chữ bị ngắt dòng */
+  font-size: 16px !important;
+  margin-left: 12px !important;
+  color: white !important;
+  white-space: nowrap !important; /* Tránh chữ bị ngắt dòng */
 }
 
 .navigation {
-  width: 100%;
+  width: 100% !important;
 }
 
 .navigation ul {
-  display: flex;
-  justify-content: space-around; /* Căn đều giữa các mục */
+  display: flex !important;
+  justify-content: space-around !important; /* Căn đều giữa các mục */
   flex-wrap: wrap; /* Đảm bảo các mục xuống dòng nếu không đủ chỗ */
   padding: 0;
   margin-left: 3rem;
@@ -90,7 +90,6 @@
   .navigation ul li a {
     font-size: 12px; /* Kích thước nhỏ hơn cho menu */
   }
-
 }
 
 #fade-menu .menu-item {

@@ -70,6 +70,7 @@ const HoSoCaNhan = () => {
         <Routes>
           <Route path="/hoso" element={<Hoso />} />
           <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
+          <Route path="/lichkham" element={<LichHenKham />} />
         </Routes>
       </div>
     </div>

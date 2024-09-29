@@ -13,12 +13,12 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.nav-list ul li {
+.nav-list .nav-list-ul li {
   list-style: none;
   padding: 1rem;
 }
 
-.nav-list ul li a {
+.nav-list .nav-list-ul li a {
   text-decoration: none;
   font-weight: bold;
   color: #a2a7a9;
@@ -26,6 +26,6 @@
   cursor: pointer;
 }
 
-.nav-list ul li a:hover {
+.nav-list .nav-list-ul li a:hover {
   color: #22668f;
 }

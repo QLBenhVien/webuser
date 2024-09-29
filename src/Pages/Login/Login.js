@@ -115,6 +115,7 @@ const Login = () => {
             className="input"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            tabIndex={1}
           />
           <input
             type="password"
@@ -122,6 +123,7 @@ const Login = () => {
             className="input"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            tabIndex={2}
           />
 
           <div className="boxbutton">

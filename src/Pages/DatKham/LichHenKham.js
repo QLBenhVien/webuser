@@ -14,7 +14,7 @@ const LichHenKham = () => {
     const newAppointment = location.state?.appointment;
     if (newAppointment) {
       setAppointments((prev) => {
-        const existingIds = prev.map(app => app.id);
+        const existingIds = prev.map((app) => app.id);
         if (!existingIds.includes(newAppointment.id)) {
           return [...prev, newAppointment]; // Thêm lịch hẹn mới
         }
@@ -22,28 +22,18 @@ const LichHenKham = () => {
       });
     }
   }, [location.state]);
-  
 
   const handleCancelAppointment = (id) => {
     // Xóa lịch hẹn khỏi danh sách
-    setAppointments((prev) => prev.filter((appointment) => appointment.id !== id));
+    setAppointments((prev) =>
+      prev.filter((appointment) => appointment.id !== id)
+    );
     alert(`Lịch hẹn với ID: ${id} đã bị hủy.`);
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <div className="layout">
-        <div className="sidebar">
-          <ul>
-            <li>Thông tin cá nhân</li>
-            <li>Kết quả khám bệnh</li>
-            <li style={{ fontWeight: "bold" }}>Lịch khám của tôi</li>
-            <li>Thông báo</li>
-            <li>Hồ sơ bệnh án</li>
-            <li>Đăng xuất</li>
-          </ul>
-        </div>
-
         <div className="main-content">
           <h2 style={{ fontWeight: "bold" }}>Lịch khám của tôi</h2>
 
@@ -71,7 +61,9 @@ const LichHenKham = () => {
                         <button
                           onClick={() => {
                             // Điều hướng đến trang chi tiết và truyền dữ liệu
-                            navigate("/chitietlichkham", { state: { appointment, index } });
+                            navigate("/chitietlichkham", {
+                              state: { appointment, index },
+                            });
                           }}
                         >
                           Xem
@@ -79,7 +71,9 @@ const LichHenKham = () => {
                       </td>
                       <td>
                         <button
-                          onClick={() => handleCancelAppointment(appointment.id)}
+                          onClick={() =>
+                            handleCancelAppointment(appointment.id)
+                          }
                         >
                           Hủy
                         </button>
