@@ -38,6 +38,7 @@ const ChiTietLichKham = () => {
       setNameBN(res.data.TenBN);
       setNameBS(res.data.TenBS);
       setAppointment(res.data.lichkham);
+      console.log(appointment)
     } catch (error) {
       console.log(error);
     }

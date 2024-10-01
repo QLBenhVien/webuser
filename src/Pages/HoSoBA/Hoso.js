@@ -112,9 +112,9 @@ function Hoso() {
           />
         </div>
         <p>Ngày tạo hồ sơ: </p> {/* Hiển thị ngày tạo từ cơ sở dữ liệu */}
-        <p className="note">
+        {/* <p className="note">
           Lưu ý: Những mục được đánh dấu * vui lòng không để trống
-        </p>
+        </p> */}
         <div className="button-group">
           <button type="submit" className="submit-button">
             Cập nhập

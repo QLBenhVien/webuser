@@ -92,7 +92,7 @@ const Register = () => {
             type="text"
             placeholder="Nhập password muốn reset"
             className="input"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             value={username}
           />
           <div className="boxbutton">

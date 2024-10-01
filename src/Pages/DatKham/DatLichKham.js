@@ -164,9 +164,9 @@ const DatLichKham = () => {
       );
       console.log(res);
       //thong bao
-      // setSnackbarMessage(res.data.data.message);
-      // setSnackbarSeverity("success");
-      // setOpen(true);
+      setSnackbarMessage(res.data.data.message);
+      setSnackbarSeverity("success");
+      setOpen(true);
 
       // console.log(res.data.lichkham);
       setLichkhambacsi(res.data.data.lichkham);
@@ -191,7 +191,7 @@ const DatLichKham = () => {
       ngayKham: doctorInfo.NgayKham,
       bacSi: doctor.Ten,
       chuyenKhoa: clinic.Ten,
-      trieuChung: "",
+      trieuChung: symptoms,
     }));
     console.log("dataphieu:", dataPhieu);
   };
@@ -208,7 +208,7 @@ const DatLichKham = () => {
         MaKhoa: clinic.id,
         NgayDat: dataPhieu.ngayKham,
         CaKham: dataPhieu.CaKham,
-        TrieuChung: dataPhieu.trieuChung,
+        TrieuChung: symptoms,
       });
       console.log(res);
       setSnackbarMessage(res.data.message);
@@ -231,6 +231,8 @@ const DatLichKham = () => {
       bacSi: "",
       chuyenKhoa: "",
     }));
+    setSymptoms("")
+
   };
 
   useEffect(() => {
@@ -288,7 +290,7 @@ const DatLichKham = () => {
               }); // Cập nhật clinic với cả id và tên
             }}
           >
-            <option value="">Chọn chuyên khoa</option>
+            <option key={-1}>Chọn chuyên khoa</option>
             {khoa.map((item) => (
               <option key={item._id} value={item._id}>
                 {item.Tenkhoa}
