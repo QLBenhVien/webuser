@@ -15,7 +15,7 @@ import Gioithieu from "./Pages/GioiThieu/Gioithieu";
 import Bacsi from "./Pages/BacSi/Bacsi";
 import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
 import LichHenKham from "./Pages/DatKham/LichHenKham";
-
+import ResetPassword from "./Pages/Login/ResetPassword";
 import Tintuc from "./Pages/TinTuc/Tintuc";
 import LienHe from "./Pages/LienHe/LienHe";
 
@@ -80,7 +80,9 @@ const HoSoCaNhan = () => {
 function App() {
   const location = useLocation();
   const isAuthPage =
-    location.pathname === "/login" || location.pathname === "/register";
+    location.pathname === "/login" ||
+    location.pathname === "/register" ||
+    location.pathname === "/resetpassword";
   const isUser =
     location.pathname === "/hoso" ||
     location.pathname === "/thongtincanhan" ||
@@ -94,12 +96,14 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/" element={<TrangChu />} />
         <Route path="/gioithieu" element={<Gioithieu />} />
         <Route path="/bacsi" element={<Bacsi />} />
         <Route path="/lienhe" element={<LienHe />} />
         <Route path="/tintuc" element={<Tintuc />} />
         <Route path="/datkham" element={<DatKham />} />
+        <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
       </Routes>
       {isUser && <HoSoCaNhan />}
     </div>

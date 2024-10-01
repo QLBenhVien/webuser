@@ -1,13 +1,5 @@
 /* src/components/DatLichKham.css */
 /* Header */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #e3f6ff;
-  color: rgb(255, 255, 255);
-  padding: 10px;
-}
 
 .logo {
   display: flex;
@@ -194,8 +186,8 @@ td {
 
 .form-child textarea {
   resize: none;
-  width: 300px; /* Tùy chỉnh kích thước */
-  height: 150px; /* Tùy chỉnh kích thước */
+  width: 5rem; /* Tùy chỉnh kích thước */
+  height: 4rem; /* Tùy chỉnh kích thước */
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;

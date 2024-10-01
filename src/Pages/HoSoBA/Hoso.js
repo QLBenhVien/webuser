@@ -7,7 +7,7 @@ function Hoso() {
   const [formData, setFormData] = useState({
     tenBenhNhan: "",
     gioiTinh: "",
-    tuoi: "",
+    ngaysinh: "",
     soCCCD: "",
     capNgay: "",
     tai: "",
@@ -54,10 +54,10 @@ function Hoso() {
             required
           />
 
-          <label>Tuổi</label>
+          <label>Ngày sinh</label>
           <input
-            type="number"
-            name="tuoi"
+            type="date"
+            name="ngaysinh"
             value={formData.tuoi}
             onChange={handleChange}
             required
@@ -92,16 +92,6 @@ function Hoso() {
           />
         </div>
         <div className="form-group">
-          <label>Hộ khẩu thường trú</label>
-          <input
-            type="text"
-            name="hoKhau"
-            value={formData.hoKhau}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
           <label>Chỗ ở hiện tại</label>
           <input
             type="text"
@@ -121,34 +111,13 @@ function Hoso() {
             required
           />
         </div>
-        <div className="form-group">
-          <label>Tiền sử bệnh tật của gia đình</label>
-          <textarea
-            name="tienSuGiaDinh"
-            value={formData.tienSuGiaDinh}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Tiền sử bệnh tật của bản thân</label>
-          <textarea
-            name="tienSuBanThan"
-            value={formData.tienSuBanThan}
-            onChange={handleChange}
-            required
-          />
-        </div>
         <p>Ngày tạo hồ sơ: </p> {/* Hiển thị ngày tạo từ cơ sở dữ liệu */}
         <p className="note">
           Lưu ý: Những mục được đánh dấu * vui lòng không để trống
         </p>
         <div className="button-group">
           <button type="submit" className="submit-button">
-            Chỉnh sửa
-          </button>
-          <button type="button" className="submit-button">
-            Đóng
+            Cập nhập
           </button>
         </div>
       </form>

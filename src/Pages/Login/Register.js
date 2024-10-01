@@ -84,7 +84,7 @@ const Register = () => {
             value={email}
           />
           <input
-            type="password"
+            type="text"
             placeholder="Nhập username"
             className="input"
             onChange={(e) => setUsername(e.target.value)}

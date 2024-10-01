@@ -1,13 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./LichHenKham.css";
+import axios from "axios";
 
 const LichHenKham = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Khai báo location
 
+  //user
+  const [name, setName] = useState("");
+
   // Khởi tạo state cho danh sách lịch hẹn
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState([{}]);
+
+  const token = localStorage.getItem("token");
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/user/xemlichkham", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("res:", res.data.TenBN);
+      setName(res.data.TenBN);
+      console.log("name", name);
+      setAppointments(res.data.lichkham);
+      console.log("appointments:", appointments);
+      // setSnackbarMessage(res.data.message);
+      // setSnackbarSeverity("success");
+      // setOpen(true);
+    } catch (error) {
+      // if (error.response.status === 401) {
+      //   navigate("/login");
+
+      //   localStorage.setItem("token-hethan", "true");
+      //   localStorage.removeItem("token");
+      // }
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   // Nhận thông tin lịch hẹn mới từ state và cập nhật danh sách
   useEffect(() => {
@@ -54,15 +90,17 @@ const LichHenKham = () => {
                   {appointments.map((appointment, index) => (
                     <tr key={appointment.id}>
                       <td>{index + 1}</td> {/* Hiển thị STT */}
-                      <td>{appointment.patientName}</td>
-                      <td>{appointment.date}</td>
-                      <td>{appointment.status}</td>
+                      <td>{name}</td>
+                      <td>{appointment.NgayDatKham}</td>
+                      <td>
+                        {appointment.TrangThai ? "đã xử lý" : "chưa xử lý"}
+                      </td>
                       <td>
                         <button
                           onClick={() => {
                             // Điều hướng đến trang chi tiết và truyền dữ liệu
                             navigate("/chitietlichkham", {
-                              state: { appointment, index },
+                              state: { id: appointment._id },
                             });
                           }}
                         >
