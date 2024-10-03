@@ -38,7 +38,7 @@ const ChiTietLichKham = () => {
       setNameBN(res.data.TenBN);
       setNameBS(res.data.TenBS);
       setAppointment(res.data.lichkham);
-      console.log(appointment)
+      console.log(appointment);
     } catch (error) {
       console.log(error);
     }
@@ -56,36 +56,32 @@ const ChiTietLichKham = () => {
         <form className="chitiet-form">
           <div className="form-group">
             <label>Tên bệnh nhân:</label>
-            <input type="text" value={nameBN} />
+            <a type="text">{nameBN}</a>
           </div>
           <div className="form-group">
             <label>Ngày khám:</label>
-            <input type="text" value={appointment.NgayDatKham} readOnly />
+            <a type="text">{appointment.NgayDatKham}</a>
           </div>
           <div className="form-group">
             <label>Triệu chứng:</label>
-            <input type="text" value={appointment.TrieuChung} readOnly />
+            <a type="text">{appointment.TrieuChung}</a>
           </div>
           <div className="form-group">
             <label>Bác sĩ:</label>
-            <input type="text" value={nameBS} readOnly />
+            <a type="text">{nameBS}</a>
           </div>
           <div className="form-group">
             <label>Ca khám:</label>
-            <input type="text" value={appointment.CaKham} readOnly />
+            <a type="text">{appointment.CaKham}</a>
           </div>
           <div className="form-group">
             <label>Trạng thái:</label>
-            <input
-              type="text"
-              value={appointment.TrangThai ? "đã xử lý" : "Chưa xử lý"}
-              readOnly
-            />
+            <a>{appointment.TrangThai ? "đã xử lý" : "Chưa xử lý"}</a>
           </div>
 
           <div className="form-group">
             <label>Lưu ý:</label>
-            <textarea readOnly>Vui lòng đến khám bệnh đúng thời hạn.</textarea>
+            <a>Vui lòng đến khám bệnh đúng thời hạn.</a>
           </div>
 
           <div className="button-container">

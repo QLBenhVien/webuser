@@ -20,21 +20,15 @@ const Register = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const token = localStorage.getItem("token");
 
   const handleResetPasswprd = async () => {
     console.log(`email: ${email} | password: ${password} `);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/resetpassword",
+      const response = await axios.put(
+        "http://localhost:8080/user/resetpassword",
         {
           email: email,
           matkhau: password,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 
@@ -93,7 +87,7 @@ const Register = () => {
             placeholder="Nhập password muốn reset"
             className="input"
             onChange={(e) => setPassword(e.target.value)}
-            value={username}
+            value={password}
           />
           <div className="boxbutton">
             <div

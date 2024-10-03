@@ -3,6 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./LichHenKham.css";
 import axios from "axios";
 
+// thong bao
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
 const LichHenKham = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Khai báo location
@@ -12,6 +16,16 @@ const LichHenKham = () => {
 
   // Khởi tạo state cho danh sách lịch hẹn
   const [appointments, setAppointments] = useState([{}]);
+
+  //thong bao
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  //end thong bao
 
   const token = localStorage.getItem("token");
 
@@ -59,16 +73,44 @@ const LichHenKham = () => {
     }
   }, [location.state]);
 
-  const handleCancelAppointment = (id) => {
+  const handleCancelAppointment = async (id) => {
     // Xóa lịch hẹn khỏi danh sách
-    setAppointments((prev) =>
-      prev.filter((appointment) => appointment.id !== id)
-    );
-    alert(`Lịch hẹn với ID: ${id} đã bị hủy.`);
+    try {
+      const res = await axios.put(
+        "http://localhost:8080/user/huylichkham",
+        { idlichdat: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      setSnackbarMessage(res.data.message);
+      setSnackbarSeverity("success");
+      setOpen(true);
+      setAppointments((prevAppointments) =>
+        prevAppointments.filter((appointment) => appointment._id !== id)
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="app">
+      {/* Sidebar as a simple list in the top-right corner */}
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <MuiAlert onClose={handleClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
+      {/* Right Content */}
       <div className="layout">
         <div className="main-content">
           <h2 style={{ fontWeight: "bold" }}>Lịch khám của tôi</h2>
@@ -110,7 +152,7 @@ const LichHenKham = () => {
                       <td>
                         <button
                           onClick={() =>
-                            handleCancelAppointment(appointment.id)
+                            handleCancelAppointment(appointment._id)
                           }
                         >
                           Hủy
