@@ -35,6 +35,11 @@
     transition: transform 0.5s ease-in-out; /* Smooth transition */
   }
   
+  .news-slider img:hover {
+    transform: scale(1.1); /* Phóng to hình ảnh khi hover */
+}
+
+  
   .slider-button {
     padding: 10px;
     background-color: #8e99a8;
@@ -164,4 +169,5 @@
     margin: 0;
     line-height: 1.6;
   }
+  
   

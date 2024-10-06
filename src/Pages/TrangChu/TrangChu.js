@@ -74,14 +74,27 @@ const TrangChu = () => {
 
         {/* News slider */}
         <div className="news-slider">
-          <button className="slider-button" onClick={prevSlide}>&lt;</button> {/* Left Arrow */}
-          <div className="slide">
-            {newsImages.slice(currentSlide, currentSlide + slidesToShow).map((image, index) => (
-              <img key={index} src={image} alt={`News ${currentSlide + index + 1}`} />
-            ))}
-          </div>
-          <button className="slider-button" onClick={nextSlide}>&gt;</button> {/* Right Arrow */}
-        </div>
+      <button className="slider-button" onClick={prevSlide}>&lt;</button> {/* Left Arrow */}
+      <div className="slide">
+        {newsImages.slice(currentSlide, currentSlide + slidesToShow).map((image, index) => {
+          const links = [
+            "https://lucnam.bacgiang.gov.vn/chi-tiet-tin-tuc/-/asset_publisher/Enp27vgshTez/content/chu-ong-trien-khai-cac-hoat-ong-phong-chong-dich-benh/20181",
+            "https://tuyengiao.hungyen.dcs.vn/tang-cuong-phong-chong-dich-covid-19-bang-y-hoc-co-truyen-c28332.html/",
+            "https://baobinhphuoc.com.vn/news/14/143498/tang-cuong-tiem-vaccine-phong-covid-19-uu-tien-bao-ve-nhom-nguy-co-cao/",
+            "https://dienbientv.vn/tin-tuc-su-kien/y-te-suc-khoe/202108/mot-so-trieu-chung-phat-ban-co-the-la-dau-hieu-mac-covid-19-5747096/",
+            "https://baophapluat.vn/13-hoc-sinh-nhap-vien-sau-khi-uong-nuoc-ngot-mien-phi-o-cong-truong-post527209.html"
+          ];
+
+          return (
+            <a key={index} href={links[index % links.length]} target="_blank" rel="noopener noreferrer">
+              <img src={image} alt={`News ${currentSlide + index + 1}`} />
+            </a>
+          );
+        })}
+      </div>
+      <button className="slider-button" onClick={nextSlide}>&gt;</button> {/* Right Arrow */}
+    </div>
+
 
        
 
