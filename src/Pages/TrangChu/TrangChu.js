@@ -96,10 +96,6 @@ const TrangChu = () => {
     </div>
 
 
-       
-
-
-
       {/* 3. Đoạn chữ với background màu xanh dương nhạt */}
       <div className="text-section">
         <h2>Chúng tôi có sự khác biệt</h2>
