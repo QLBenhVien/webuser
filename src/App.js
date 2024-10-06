@@ -18,6 +18,7 @@ import LichHenKham from "./Pages/DatKham/LichHenKham";
 import ResetPassword from "./Pages/Login/ResetPassword";
 import Tintuc from "./Pages/TinTuc/Tintuc";
 import LienHe from "./Pages/LienHe/LienHe";
+import PhieuKham from "./Pages/DatKham/PhieuKhamBenh";
 
 // Trong phần Routes
 
@@ -103,6 +104,7 @@ function App() {
         <Route path="/lienhe" element={<LienHe />} />
         <Route path="/tintuc" element={<Tintuc />} />
         <Route path="/datkham" element={<DatKham />} />
+        <Route path="/phieukham" element={<PhieuKham />} />
         <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
       </Routes>
       {isUser && <HoSoCaNhan />}
