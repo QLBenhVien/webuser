@@ -12,10 +12,12 @@ import TrangChu from "./Pages/TrangChu/TrangChu";
 import Navigation from "./components/Navigation";
 import DatKham from "./Pages/DatKham/DatLichKham";
 import Gioithieu from "./Pages/GioiThieu/Gioithieu";
-import Bacsi from "./Pages/BacSi/Bacsi";
+import BacSi from "./Pages/BacSi/Bacsi";
 import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
 import LichHenKham from "./Pages/DatKham/LichHenKham";
-
+import LienHe from "./Pages/LienHe/LienHe";
+import TinTuc from "./Pages/TinTuc/Tintuc";
+import BenhAn from "./Pages/BenhAn/BenhAn"
 
 
 // Trong phần Routes
@@ -98,10 +100,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<TrangChu />} />
         <Route path="/gioithieu" element={<Gioithieu />} />
-        <Route path="/bacsi" element={<Bacsi />} />
+        <Route path="/bacsi" element={<BacSi />} />
         <Route path="/lienhe" element={<LienHe />} />
-        <Route path="/tintuc" element={<Tintuc />} />
+        <Route path="/tintuc" element={<TinTuc />} />
         <Route path="/datkham" element={<DatKham />} />
+        
       </Routes>
       {isUser && <HoSoCaNhan />}
     </div>
