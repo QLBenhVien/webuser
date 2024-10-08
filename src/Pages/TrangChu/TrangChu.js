@@ -65,8 +65,8 @@ const TrangChu = () => {
           {snackbarMessage}
         </MuiAlert>
       </Snackbar>
-      <div className="home-container">
-        <div className="video-container">
+      <div className="trangchu-container">
+        <div className="videotrangchu-container">
           <iframe
             width="100%"
             height="550px"
@@ -80,8 +80,8 @@ const TrangChu = () => {
         <h2 style={{ textAlign: "center", color: "#22668E" }}>Tin tức mới</h2>
 
         {/* News slider */}
-        <div className="news-slider">
-          <button className="slider-button" onClick={prevSlide}>&lt;</button> {/* Left Arrow */}
+        <div className="tintuc-trangchu-slider">
+          <button className="tintuc-trangchu-button" onClick={prevSlide}>&lt;</button> {/* Left Arrow */}
           <div className="slide">
             {newsImages.slice(currentSlide, currentSlide + slidesToShow).map((image, index) => {
               const links = [
@@ -102,7 +102,7 @@ const TrangChu = () => {
         </div>
 
         {/* 3. Đoạn chữ với background màu xanh dương nhạt */}
-        <div className="text-section">
+        <div className="vanban-trangchu-section">
           <h2>CHÚNG TÔI CÓ SỰ KHÁC BIỆT</h2>
           <p>Phòng khám UMC là nơi bạn có thể tin tưởng với đội ngũ bác sĩ giàu kinh nghiệm, trang thiết bị hiện đại, và dịch vụ chăm sóc tận tâm. 
             Chúng tôi luôn đặt sức khỏe của bạn lên hàng đầu, cam kết mang đến những giải pháp y tế toàn diện, an toàn và hiệu quả.
@@ -113,31 +113,31 @@ const TrangChu = () => {
         </div>
 
    {/* 4. Đội ngũ bác sĩ gồm 3 ảnh */}
-        <div className="doctor">
+        <div className="bacsi-trangchu">
           <h2>ĐỘI NGŨ Y - BÁC SĨ CHUYÊN NGHIỆP</h2>
-          <div className="doctor-team">
-            <div className="doctor-item">
+          <div className="bacsi-trangchu-team">
+            <div className="bacsi-trangchu-item">
               <img src={bacsi1} alt="Doctor 1" />
               <p>BS Chà My</p>
             </div>
-            <div className="doctor-item">
+            <div className="bacsi-trangchu-item">
               <img src={bacsi2} alt="Doctor 2" />
               <p>BS TUẤN</p>
             </div>
-            <div className="doctor-item">
+            <div className="bacsi-trangchu-item">
               <img src={bacsi3} alt="Doctor 3" />
               <p>BS THỊNH</p>
             </div>
           </div>
-          <div className="doctor-buttons">
-            <button className="schedule-button">Đặt lịch hẹn ngay</button>
-            <button className="details-button">Xem chi tiết</button>
+          <div className="trangchu-buttons">
+            <button className="lichtrinh-trangchu-button">Đặt lịch hẹn ngay</button>
+            <button className="xemchitiet-trangchu-button">Xem chi tiết</button>
           </div>
         </div>
 
 
         {/* 5. Số hotline và button tìm hiểu thêm */}
-        <div className="hotline-section">
+        <div className="hotline-trangchu-section">
           <h2>PHÒNG KHÁM THEO YÊU CẦU</h2>
           <p>Bạn không có thời gian? Hãy gọi ngay Hotline Phòng khám umc để đặt lịch khám dịch vụ nhanh với các bác sĩ, chuyên gia của chúng tôi</p>
           <h2>Hotline: 0962 240 221</h2>
@@ -145,29 +145,29 @@ const TrangChu = () => {
         </div>
 
         {/* 6. Góp ý liên hệ */}
-        <div className="feedback-section">
+        <div className="feedback-trangchu-section">
           <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
         
-          <div className="feedback-container">
-            <div className="feedback-info">
+          <div className="feedback-trangchu-container">
+            <div className="feedback-trangchu-info">
               <p> Nếu quý khách có góp ý, thắc mắc hay ý kiến phản hồi, đóng góp xin vui lòng điền vào
               Mẫu bên phải và gửi cho chúng tôi. Xin chân thành cảm ơn!</p>
             </div>
 
-            <div className="feedback-form">
+            <div className="feedback-trangchu-form">
               <form>
-                <div className="form-group">
+                <div className="form-trangchu-group">
                   <input className="input-field" type="text" placeholder="Họ tên" required />
                   <input className="input-field" type="email" placeholder="Email" required />
                 </div>
-                <div className="form-group">
+                <div className="form-trangchu-group">
                   <input className="input-field" type="text" placeholder="Tiêu đề" required />
                   <input className="input-field" type="tel" placeholder="Số điện thoại" required />
                 </div>
-                <div className="form-group">
+                <div className="form-trangchu-group">
                   <textarea className="textarea-field" placeholder="Nội dung liên hệ" required></textarea>
                 </div>
-                <div className="button-container">
+                <div className="trangchu-buttons">
                   <button type="submit">Gửi phản hồi</button>
                 </div>
               </form>
@@ -179,7 +179,7 @@ const TrangChu = () => {
 
         {/* 7. Footer */}
         <footer>
-            <div className="footer-left">
+            <div className="footer-trangchu-left">
               <h4>Công ty cổ phần trung tâm y khoa UMC</h4>
               <p>
                 <i className="fas fa-map-marker-alt"></i> 201 Nguyễn Chí Thanh, Phường 12, Quận 5, Thành phố Hồ Chí Minh.
@@ -197,7 +197,7 @@ const TrangChu = () => {
                 <i className="fas fa-envelope"></i> umc@bbnnaa.com
               </p>
             </div>
-            <div className="footer-right">
+            <div className="footer-trangchu-right">
               <h4>Lịch làm việc</h4>
               <p>
                 <i className="fas fa-clock"></i> Thứ 2 - Thứ 7 | 8:00 - 17:00
