@@ -1,160 +1,327 @@
-import React, { useState } from 'react';
-import './DatLichKham.css';
-import { FaSearch } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import "./DatLichKham.css";
+import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import ScheduleTable from "../../components/ScheduleTable";
+import axios from "axios";
 
-
+// thong bao
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const DatLichKham = () => {
   const navigate = useNavigate(); // Khởi tạo navigate
-  const [time, setTime] = useState('');
-  const [clinic, setClinic] = useState('');
-  const [doctor, setDoctor] = useState('');
-  const [patientName, setPatientName] = useState('');
-  const [gender, setGender] = useState('');
-  const [phone, setPhone] = useState('');
-  const [age, setAge] = useState('');
-  const [address, setAddress] = useState('');
-  const [symptoms, setSymptoms] = useState('');
-  const [shift, setShift] = useState('');
-  const [schedule, setSchedule] = useState({
-    'Thứ 2': {
-      'Ca 1': '',
-      'Ca 2': '',
-    },
-    'Thứ 3': {
-      'Ca 1': '',
-      'Ca 2': '',
-    },
-    'Thứ 4': {
-      'Ca 1': '',
-      'Ca 2': '',
-    },
-    'Thứ 5': {
-      'Ca 1': '',
-      'Ca 2': '',
-    },
-    'Thứ 6': {
-      'Ca 1': '',
-      'Ca 2': '',
-    },
-    'Thứ 7': {
-      'Ca 1': '',
-      'Ca 2': '',
-    },
+
+  //thong bao
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  //end thong bao
+
+  //useState phieu
+  const [time, setTime] = useState("");
+  const [clinic, setClinic] = useState({
+    id: "",
+    Ten: "",
   });
+  const [doctor, setDoctor] = useState({
+    id: "",
+    Ten: "",
+  });
+  const [patientName, setPatientName] = useState("");
+  const [gender, setGender] = useState("");
+  const [phone, setPhone] = useState("");
+  const [age, setAge] = useState("");
+  const [address, setAddress] = useState("");
+  const [symptoms, setSymptoms] = useState("");
+  const [shift, setShift] = useState("");
 
-  const handleSearchClick = () => {
-    if (time && clinic && doctor) {
-      const updatedSchedule = { ...schedule };
-      updatedSchedule['Thứ 2']['Ca 1'] = doctor; // Cập nhật bác sĩ cho Thứ 2 Ca 1
-      updatedSchedule['Thứ 3']['Ca 1'] = doctor; // Cập nhật bác sĩ cho Thứ 3 Ca 1
-      setSchedule(updatedSchedule);
-    } else {
-      alert('Vui lòng chọn Thời gian, Chuyên khoa và Bác sĩ trước.');
-    }
-  };
+  ///
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    gender: "",
+    address: "",
+    phone: "",
+  });
+  const [khoa, setKhoa] = useState([
+    {
+      id: "",
+      name: "",
+    },
+  ]);
+  const [bacSi, setBacSi] = useState([
+    {
+      id: "",
+      hoTen: "",
+      email: "",
+      diaChi: "",
+      maCV: "",
+      maKhoa: "",
+      maTK: "",
+      gioiTinh: null,
+      sdt: null,
+    },
+  ]);
+  const [bacSiCurrent, setBacSiCurrent] = useState([
+    {
+      id: "",
+      hoTen: "",
+      email: "",
+      diaChi: "",
+      maCV: "",
+      maKhoa: "",
+      maTK: "",
+      gioiTinh: null,
+      sdt: null,
+    },
+  ]);
+  const [lichkhambacsi, setLichkhambacsi] = useState([]);
 
-  const handleDoctorClick = (day, shift) => {
-    const selectedDoctor = schedule[day][shift];
-    if (selectedDoctor) {
-      setDoctor(selectedDoctor);
-      setShift(shift);
-      setPatientName('Phùng Bảo Khang');
-      setGender('Nam');
-      setPhone('0123456789');
-      setAge(19);
-      setAddress('Quận 8');
-      setTime(day);
+  const [dataPhieu, setDataPhieu] = useState([
+    {
+      hoTen: "",
+      gioiTinh: "",
+      sdt: "",
+      ngaySinh: "",
+      diaChi: "",
+      caKham: "",
+      ngayKham: "",
+      bacSi: "",
+      chuyenKhoa: "",
+      trieuChung: "",
+    },
+  ]);
 
-      // Cập nhật chuyên khoa dựa trên lựa chọn
-      switch (clinic) {
-        case 'phong_kham_1':
-          setClinic('Khoa Nhi');
-          break;
-        case 'phong_kham_2':
-          setClinic('Khoa Phụ sản');
-          break;
-        case 'phong_kham_3':
-          setClinic('Khoa Cấp Cứu');
-          break;
-        default:
-          setClinic('');
-          break;
+  const fecthdata = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8080/user/thongtindatkham",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setUser({
+        id: res.data.data.benhNhan._id,
+        name: res.data.data.benhNhan.Ten,
+        email: res.data.data.benhNhan.Email,
+        gender: res.data.data.benhNhan.GioiTinh,
+        address: res.data.data.benhNhan.DiaChi,
+        phone: res.data.data.benhNhan.SDT,
+      });
+      setKhoa(res.data.data.khoa);
+
+      console.log(res);
+      setBacSi(res.data.data.bacsi);
+      // setSnackbarMessage(res.data.message);
+      // setSnackbarSeverity("success");
+      // setOpen(true);
+    } catch (error) {
+      if (error.response.status === 401) {
+        navigate("/login");
+
+        localStorage.setItem("token-hethan", "true");
+        localStorage.removeItem("token");
       }
+      console.log(error.response.status);
     }
   };
 
-  const handleRegister = () => {
-    if (!patientName || !gender || !phone || !age || !address || !time || !shift || !doctor || !clinic) {
-      alert('Vui lòng điền đầy đủ thông tin!');
-      return;
+  useEffect(() => {
+    fecthdata();
+  }, []);
+  // cap nhap bac si
+  // Cập nhật bacSiCurrent theo clinic
+  useEffect(() => {
+    const bacSicurrent = bacSi.filter((bac) => bac.MaKhoa === clinic.id);
+    setBacSiCurrent(bacSicurrent);
+    console.log("bac si hien tai", bacSiCurrent);
+  }, [clinic.id]);
+
+  const handleSearchClick = async () => {
+    try {
+      const res = await axios.put(
+        "http://localhost:8080/user/timlichkham",
+        {
+          BacSiID: doctor.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
+      //thong bao
+      setSnackbarMessage(res.data.data.message);
+      setSnackbarSeverity("success");
+      setOpen(true);
+
+      // console.log(res.data.lichkham);
+      setLichkhambacsi(res.data.data.lichkham);
+      console.log("lich kham dc set", lichkhambacsi);
+    } catch (error) {
+      setSnackbarMessage(error.response.data.message);
+      setSnackbarSeverity("error");
+      setOpen(true);
+      console.log(error);
     }
-  
-    // Ghi lại thông tin đăng ký
-    const appointmentData = {
-      id: new Date().getTime(), // Tạo ID duy nhất cho lịch hẹn
-      patientName,
-      date: time,
-      status: "Chưa duyệt",
-      shift,
-      doctor,
-      symptoms,
-    };
-  
-    console.log('Đăng ký thành công với thông tin:', appointmentData);
-    alert('Đăng ký thành công!');
-  
-    // Điều hướng đến trang LichHenKham với thông tin lịch hẹn
-    navigate('/tintuc', { state: { appointment: appointmentData } });
   };
-  
-  
+
+  const handleDoctorClick = (doctorInfo) => {
+    setDataPhieu((prevData) => ({
+      ...prevData,
+      hoTen: user.name,
+      gioiTinh: user.gender,
+      sdt: user.phone,
+      ngaySinh: "14062003",
+      diaChi: user.address,
+      caKham: doctorInfo.caKham,
+      ngayKham: doctorInfo.NgayKham,
+      bacSi: doctor.Ten,
+      chuyenKhoa: clinic.Ten,
+      trieuChung: symptoms,
+    }));
+    console.log("dataphieu:", dataPhieu);
+  };
+
+  // useEffect(() => {
+  //   handleDoctorClick();
+  // }, [dataPhieu]);
+
+  const handleRegister = async () => {
+    try {
+      const res = await axios.put("http://localhost:8080/user/datkham", {
+        MaNV: doctor.id,
+        MaBN: user.id,
+        MaKhoa: clinic.id,
+        NgayDat: dataPhieu.ngayKham,
+        CaKham: dataPhieu.CaKham,
+        TrieuChung: symptoms,
+      });
+      console.log(res);
+      setSnackbarMessage(res.data.message);
+      setSnackbarSeverity("success");
+      setOpen(true);
+      handleCancel();
+    } catch (error) {
+      setSnackbarMessage(error.response.data.message);
+      setSnackbarSeverity("error");
+      setOpen(true);
+      console.log(error);
+    }
+  };
 
   const handleCancel = () => {
-    setPatientName('');
-    setGender('');
-    setPhone('');
-    setAge('');
-    setAddress('');
-    setSymptoms('');
-    setTime('');
-    setClinic('');
-    setDoctor('');
-    setShift('');
+    setDataPhieu((prevData) => ({
+      ...prevData,
+      caKham: "",
+      ngayKham: null,
+      bacSi: "",
+      chuyenKhoa: "",
+    }));
+    setSymptoms("")
+
   };
+
+  useEffect(() => {
+    const today = new Date();
+    const sixDaysLater = new Date(today);
+    sixDaysLater.setDate(today.getDate() + 5);
+
+    const formatDate = (date) => {
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Lưu ý tháng trong JS bắt đầu từ 0
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    };
+    console.log("time");
+    setStartDate(formatDate(today));
+    setEndDate(formatDate(sixDaysLater));
+  }, []);
 
   return (
     <main className="datlich-main">
-      <h2 className="main-title">Đăng ký khám bệnh</h2>
+      {/* Sidebar as a simple list in the top-right corner */}
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <MuiAlert onClose={handleClose} severity={snackbarSeverity}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
+      {/* Right Content */}
+      <h2 className="main-title">ĐĂNG KÝ KHÁM BỆNH</h2>
       <div className="choice">
         <div className="form-group">
           <label htmlFor="time">Thời gian:</label>
-          <select id="time" value={time} onChange={(e) => setTime(e.target.value)}>
-            <option value="">Chọn thời gian</option>
-            <option value="23/09/2024 - 29/09/2024">23/09/2024 - 29/09/2024</option>
-            <option value="30/09/2024 - 05/10/2024">30/09/2024 - 05/10/2024</option>
-            <option value="06/10/2024 - 12/10/2024">06/10/2024 - 12/10/2024</option>
-          </select>
+
+          <label style={{ color: "red" }}>
+            {startDate}- {endDate}
+          </label>
         </div>
 
         <div className="form-group">
           <label htmlFor="clinic">Chuyên khoa:</label>
-          <select id="clinic" value={clinic} onChange={(e) => setClinic(e.target.value)}>
-            <option value="">Chọn chuyên khoa</option>
-            <option value="phong_kham_1">Phòng khám Nhi</option>
-            <option value="phong_kham_2">Phòng khám Phụ sản</option>
-            <option value="phong_kham_3">Phòng khám Cấp Cứu</option>
+          <select
+            id="clinic"
+            value={clinic.id} // Hoặc có thể là clinic.id nếu bạn chỉ muốn dùng id để tra cứu
+            onChange={(e) => {
+              const selectedClinic = khoa.find(
+                (item) => item._id === e.target.value
+              ); // Tìm khoa dựa trên id đã chọn
+              setClinic({
+                id: selectedClinic._id,
+                Ten: selectedClinic.Tenkhoa,
+              }); // Cập nhật clinic với cả id và tên
+            }}
+          >
+            <option key={-1}>Chọn chuyên khoa</option>
+            {khoa.map((item) => (
+              <option key={item._id} value={item._id}>
+                {item.Tenkhoa}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="form-group">
           <label htmlFor="doctor">Chọn bác sĩ:</label>
-          <select id="doctor" value={doctor} onChange={(e) => setDoctor(e.target.value)}>
+          <select
+            id="doctor"
+            value={doctor.id} // Sử dụng `doctor.id` nếu bạn đang lưu đối tượng doctor
+            onChange={(e) => {
+              const selectedDoctor = bacSiCurrent.find(
+                (item) => item._id === e.target.value
+              ); // Tìm bác sĩ dựa trên ID đã chọn
+              setDoctor({ id: selectedDoctor._id, Ten: selectedDoctor.HoTen }); // Cập nhật với ID và tên
+            }}
+            disabled={bacSiCurrent.length === 0} // Disable nếu không có bác sĩ
+          >
             <option value="">Chọn bác sĩ</option>
-            <option value="BS. Nguyễn Văn A">BS. Nguyễn Văn A</option>
-            <option value="BS. Lương Đình B">BS. Lương Đình B</option>
-            <option value="BS. Nguyễn Hà G">BS. Nguyễn Hà G</option>
+            {Array.isArray(bacSiCurrent) && bacSiCurrent.length > 0 ? (
+              bacSiCurrent.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.HoTen}
+                </option>
+              ))
+            ) : (
+              <option value="">Không có bác sĩ</option>
+            )}
           </select>
         </div>
 
@@ -162,96 +329,93 @@ const DatLichKham = () => {
           <FaSearch />
         </div>
       </div>
-
       <h3>Lịch Khám</h3>
-      <div className="schedule-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Thời gian</th>
-              <th>Thứ 2</th>
-              <th>Thứ 3</th>
-              <th>Thứ 4</th>
-              <th>Thứ 5</th>
-              <th>Thứ 6</th>
-              <th>Thứ 7</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Ca 1 (7:30 - 11:00)</td>
-              <td onClick={() => handleDoctorClick('Thứ 2', 'Ca 1')}>{schedule['Thứ 2']['Ca 1']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 3', 'Ca 1')}>{schedule['Thứ 3']['Ca 1']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 4', 'Ca 1')}>{schedule['Thứ 4']['Ca 1']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 5', 'Ca 1')}>{schedule['Thứ 5']['Ca 1']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 6', 'Ca 1')}>{schedule['Thứ 6']['Ca 1']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 7', 'Ca 1')}>{schedule['Thứ 7']['Ca 1']}</td>
-            </tr>
-            <tr>
-              <td>Ca 2 (13:30 - 17:00)</td>
-              <td onClick={() => handleDoctorClick('Thứ 2', 'Ca 2')}>{schedule['Thứ 2']['Ca 2']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 3', 'Ca 2')}>{schedule['Thứ 3']['Ca 2']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 4', 'Ca 2')}>{schedule['Thứ 4']['Ca 2']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 5', 'Ca 2')}>{schedule['Thứ 5']['Ca 2']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 6', 'Ca 2')}>{schedule['Thứ 6']['Ca 2']}</td>
-              <td onClick={() => handleDoctorClick('Thứ 7', 'Ca 2')}>{schedule['Thứ 7']['Ca 2']}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
 
+      <h5
+        style={{
+          color: "#AA0000",
+          fontWeight: "bold",
+          fontSize: "12px",
+        }}
+      >
+        Nhấn vào ô bạn muốn khám thông tin sẽ được điền tự động ở phiếu khám
+        bệnh.
+      </h5>
+      <ScheduleTable
+        lichkhambacsi={lichkhambacsi}
+        tenbacsi={doctor}
+        onDoctorClick={handleDoctorClick}
+      />
       <div className="patient-info">
-  <h3>Thông tin bệnh nhân</h3>
-  <div className="form-group">
-    <label>Họ và tên:</label>
-    <input type="text" value={patientName} onChange={(e) => setPatientName(e.target.value)} placeholder="Nhập họ và tên" />
-  </div>
-  <div className="form-group">
-    <label>Giới tính:</label>
-    <select value={gender} onChange={(e) => setGender(e.target.value)}>
-      <option value="">Chọn giới tính</option>
-      <option value="Nam">Nam</option>
-      <option value="Nữ">Nữ</option>
-    </select>
-  </div>
-  <div className="form-group">
-    <label>Số điện thoại:</label>
-    <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Nhập số điện thoại" />
-  </div>
-  <div className="form-group">
-    <label>Tuổi:</label>
-    <input type="number" value={age} onChange={(e) => setAge(e.target.value)} placeholder="Nhập tuổi" />
-  </div>
-  <div className="form-group">
-    <label>Địa chỉ:</label>
-    <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ" />
-  </div>
-  <div className="form-group">
-    <label>Ngày khám:</label>
-    <input type="text" value={time} readOnly />
-  </div>
-  <div className="form-group">
-    <label>Chuyên khoa:</label>
-    <input type="text" value={clinic} readOnly />
-  </div>
-  <div className="form-group">
-    <label>Ca khám:</label>
-    <input type="text" value={shift} readOnly />
-  </div>
-  <div className="form-group">
-    <label>Bác sĩ:</label>
-    <input type="text" value={doctor} readOnly />
-  </div>
-  <div className="form-group">
-    <label>Triệu chứng:</label>
-    <textarea value={symptoms} onChange={(e) => setSymptoms(e.target.value)} placeholder="Nhập triệu chứng" />
-  </div>
-  <div className="button-container">
-    <button className="register-btn" onClick={handleRegister}>Đăng ký</button>
-    <button className="cancel-btn" onClick={handleCancel}>Hủy</button>
-  </div>
-</div>
+        <h3>PHIẾU ĐĂNG KÝ KHÁM BỆNH</h3>
+        <div className="form-datkham">
+          <div className="form-datkham-trai">
+            <div className="form-child">
+              <h5>HỌ VÀ TÊN:</h5>
+              <h5 className="noidung">{user.name}</h5>
+            </div>
+            <div className="form-child">
+              <h5>SỐ ĐIỆN THOẠI:</h5>
+              <h5 className="noidung">{user.phone}</h5>
+            </div>
+            <div className="form-child">
+              <h5>ĐỊA CHỈ:</h5>
+              <h5 className="noidung">{user.address}</h5>
+            </div>
+            <div className="form-child">
+              <h5>NGÀY KHÁM:</h5>
+              <h5 className="noidung">
+                {dataPhieu.ngayKham != null
+                  ? new Date(dataPhieu.ngayKham).toLocaleDateString("vi-VN", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                    })
+                  : ""}
+              </h5>
+            </div>
+            <div className="form-child">
+              <h5>CHUYÊN KHOA:</h5>
+              <h5 className="noidung">{dataPhieu.chuyenKhoa}</h5>
+            </div>
+            <div className="form-child">
+              <h5>TRIỆU CHỨNG:</h5>
+              <textarea
+                value={symptoms}
+                onChange={(e) => setSymptoms(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="form-datkham-phai">
+            <div className="form-child">
+              <h5>GIỚI TÍNH:</h5>
+              <h5 className="noidung">{user.gender}</h5>
+            </div>
+            <div className="form-child">
+              <h5>NGÀY SINH:</h5>
+              <h5 className="noidung">{dataPhieu.ngaySinh}</h5>
+            </div>
 
+            <div className="form-child">
+              <h5>CA KHÁM:</h5>
+              <h5 className="noidung">{dataPhieu.caKham}</h5>
+            </div>
+            <div className="form-child">
+              <h5>BÁC SĨ:</h5>
+              <h5 className="noidung">{dataPhieu.bacSi}</h5>
+            </div>
+            <div className="form-child"></div>
+          </div>
+        </div>
+        <div className="button-container">
+          <button className="register-btn" onClick={handleRegister}>
+            Đăng ký
+          </button>
+          <button className="cancel-btn" onClick={handleCancel}>
+            Hủy
+          </button>
+        </div>
+      </div>
     </main>
   );
 };

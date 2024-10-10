@@ -3,10 +3,11 @@
 }
 
 .form-title {
-  color: #206690;
+  color: #5f696f;
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 24px;
+  margin-top: 2rem;
 }
 
 .form-container {
@@ -26,9 +27,15 @@
   flex-wrap: wrap;
 }
 
-label {
+.form-group label {
   font-size: 0.9rem;
   flex: 0.5;
+}
+
+.form-group input {
+  height: 1.5rem;
+  width: 2rem;
+  border: 1px solid #ccc !important;
 }
 
 input,

@@ -7,7 +7,7 @@ function Nav() {
   return (
     <div className="nav-container">
       <div className="nav-list">
-        <ul>
+        <ul className="nav-list-ul">
           <li>
             <a
               href="/thongtincanhan"

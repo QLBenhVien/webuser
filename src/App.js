@@ -15,15 +15,14 @@ import Gioithieu from "./Pages/GioiThieu/Gioithieu";
 import BacSi from "./Pages/BacSi/Bacsi";
 import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
 import LichHenKham from "./Pages/DatKham/LichHenKham";
+
 import LienHe from "./Pages/LienHe/LienHe";
 import TinTuc from "./Pages/TinTuc/Tintuc";
 import BenhAn from "./Pages/BenhAn/BenhAn"
 
 
+
 // Trong phần Routes
-
-
-
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -72,9 +71,9 @@ const HoSoCaNhan = () => {
 
       <div style={{ flex: "7" }}>
         <Routes>
-
           <Route path="/hoso" element={<Hoso />} />
           <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
+          <Route path="/lichkham" element={<LichHenKham />} />
         </Routes>
       </div>
     </div>
@@ -84,7 +83,9 @@ const HoSoCaNhan = () => {
 function App() {
   const location = useLocation();
   const isAuthPage =
-    location.pathname === "/login" || location.pathname === "/register";
+    location.pathname === "/login" ||
+    location.pathname === "/register" ||
+    location.pathname === "/resetpassword";
   const isUser =
     location.pathname === "/hoso" ||
     location.pathname === "/thongtincanhan" ||
@@ -98,19 +99,21 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/" element={<TrangChu />} />
         <Route path="/gioithieu" element={<Gioithieu />} />
         <Route path="/bacsi" element={<BacSi />} />
         <Route path="/lienhe" element={<LienHe />} />
         <Route path="/tintuc" element={<TinTuc />} />
         <Route path="/datkham" element={<DatKham />} />
-        
+
+        <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
+
       </Routes>
       {isUser && <HoSoCaNhan />}
     </div>
   );
 }
-
 
 export default function AppWrapper() {
   return (

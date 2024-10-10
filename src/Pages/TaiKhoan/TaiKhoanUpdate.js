@@ -37,6 +37,7 @@ function TaiKhoanUpdate() {
         {
           Ten: user.name,
           DiaChi: user.address,
+
           GioiTinh: user.gender,
           SDT: user.phone,
         },
