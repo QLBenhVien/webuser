@@ -17,6 +17,7 @@ import ChiTietLichKham from "./Pages/DatKham/ChiTietLichKham";
 import LichHenKham from "./Pages/DatKham/LichHenKham";
 
 import LienHe from "./Pages/LienHe/LienHe";
+import PhieuKham from "./Pages/DatKham/PhieuKhamBenh";
 import TinTuc from "./Pages/TinTuc/Tintuc";
 import BenhAn from "./Pages/BenhAn/BenhAn"
 
@@ -106,6 +107,7 @@ function App() {
         <Route path="/lienhe" element={<LienHe />} />
         <Route path="/tintuc" element={<TinTuc />} />
         <Route path="/datkham" element={<DatKham />} />
+        <Route path="/phieukham" element={<PhieuKham />} />
 
         <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
 
