@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-
+import React, { useState } from "react";
+import styled from "styled-components";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 const ListWrapper = styled.div`
-  width: 100%;
-  max-width: 1200px; /* Tăng chiều rộng */
-  margin: 0 auto;
+  width: 80%;
+  max-width: auto; /* Tăng chiều rộng */
+  margin: 0 1rem;
   font-family: Arial, sans-serif;
   padding: 30px; /* Tăng padding */
 `;
 
 const ListTitle = styled.h1`
-  color: #22668E;
+  color: #22668e;
   margin-bottom: 20px;
   text-align: left;
   font-size: 24px;
@@ -23,7 +26,7 @@ const Container = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px; /* Thêm khoảng cách giữa các container */
   height: 450px; /* Tăng chiều cao */
-  max-width: 1200px; /* Tăng chiều rộng */
+  max-width: auto; /* Tăng chiều rộng */
 `;
 
 const TableList = styled.table`
@@ -41,7 +44,7 @@ const TableListHeader = styled.th`
   padding: 10px;
   border: 1px solid black;
   text-align: left;
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
   color: black;
 `;
 
@@ -51,7 +54,7 @@ const TableListCell = styled.td`
 `;
 
 const Button = styled.button`
-  background-color: #22668E;
+  background-color: #22668e;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -64,7 +67,7 @@ const Button = styled.button`
 `;
 
 const CloseButton = styled(Button)`
-  background-color: #22668E; /* Sửa lại màu */
+  background-color: #22668e; /* Sửa lại màu */
   margin-top: 20px;
 
   &:hover {
@@ -73,7 +76,7 @@ const CloseButton = styled(Button)`
 `;
 
 const PageWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   max-width: 1200px; /* Tăng chiều rộng */
   margin: 0 auto;
   font-family: Arial, sans-serif;
@@ -81,7 +84,7 @@ const PageWrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  color: #22668E;
+  color: #22668e;
   margin-bottom: 10px;
   text-align: left;
   font-size: 24px;
@@ -128,13 +131,13 @@ const TableHeader = styled.th`
   padding: 10px;
   border: 1px solid black;
   text-align: left; /* Căn trái cho tiêu đề */
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
   color: black;
 `;
 
-
 const TableBody = styled.tbody``;
 
+// Styled components giữ nguyên...
 
 const Benhan = () => {
   const [showDetail, setShowDetail] = useState(false);
@@ -147,45 +150,50 @@ const Benhan = () => {
     setShowDetail(false);
   };
 
-  if (!showDetail) {
-    return (
-      <ListWrapper>
-        <ListTitle>DANH SÁCH BỆNH ÁN</ListTitle>
-        <Container>
-          <TableList>
-            <thead>
-              <TableListRow>
-                <TableListHeader>STT</TableListHeader>
-                <TableListHeader>Tên bệnh nhân</TableListHeader>
-                <TableListHeader>Tên bệnh</TableListHeader>
-                <TableListHeader>Ngày khám</TableListHeader>
-                <TableListHeader>Xem chi tiết</TableListHeader>
-              </TableListRow>
-            </thead>
-            <tbody>
-              <TableListRow>
-                <TableListCell>1</TableListCell>
-                <TableListCell>Phùng Bảo Khang</TableListCell>
-                <TableListCell>Đau đầu</TableListCell>
-                <TableListCell>03/09/2024</TableListCell>
-                <TableListCell><Button onClick={handleViewDetail}>Xem</Button></TableListCell>
-              </TableListRow>
-            </tbody>
-          </TableList>
-        </Container>
-      </ListWrapper>
-    );
-  }
-
   return (
-    <PageWrapper>
-      <Title>KẾT QUẢ KHÁM BỆNH</Title>
+    <ListWrapper>
+      <ListTitle>KẾT QUẢ KHÁM BỆNH</ListTitle>
       <Container>
-        <div>
+        <TableList>
+          <thead>
+            <TableListRow>
+              <TableListHeader>STT</TableListHeader>
+              <TableListHeader>Tên bệnh nhân</TableListHeader>
+              <TableListHeader>Tên bệnh</TableListHeader>
+              <TableListHeader>Ngày khám</TableListHeader>
+              <TableListHeader>Xem chi tiết</TableListHeader>
+            </TableListRow>
+          </thead>
+          <tbody>
+            <TableListRow>
+              <TableListCell>1</TableListCell>
+              <TableListCell>Ngọc Duy</TableListCell>
+              <TableListCell>Đau đầu</TableListCell>
+              <TableListCell>03/09/2024</TableListCell>
+              <TableListCell>
+                <Button onClick={handleViewDetail}>Xem</Button>
+              </TableListCell>
+            </TableListRow>
+          </tbody>
+        </TableList>
+      </Container>
+
+      {/* Dialog hiển thị chi tiết */}
+      <Dialog
+        open={showDetail}
+        onClose={handleCloseDetail}
+        aria-labelledby="draggable-dialog-title"
+        fullWidth={true} // Đảm bảo dialog chiếm toàn bộ chiều rộng
+        maxWidth="md" // Giới hạn chiều rộng tối đa
+      >
+        <DialogTitle id="draggable-dialog-title">
+          KẾT QUẢ KHÁM BỆNH CHI TIẾT
+        </DialogTitle>
+        <DialogContent>
           <InfoRow>
             <InfoItem>
               <Label>Tên bệnh nhân:</Label>
-              <div>Phùng Bảo Khang</div>
+              <div>Phạm Ngọc Duy</div>
             </InfoItem>
             <InfoItem>
               <Label>Mã BN:</Label>
@@ -217,59 +225,64 @@ const Benhan = () => {
           <InfoRow>
             <InfoItem>
               <Label>Chuẩn đoán:</Label>
-              <div>Ai mà biết chời, mua bằng chứ hong phải tự học nên hong biết bị gì hết, còn thuốc là kê đại á!</div>
+              <div>
+                Ai mà biết chời, mua bằng chứ hong phải tự học nên hong biết bị
+                gì hết, còn thuốc là kê đại á!
+              </div>
             </InfoItem>
           </InfoRow>
-        </div>
 
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableHeader>STT</TableHeader>
-              <TableHeader>Tên thuốc / Hàm lượng</TableHeader>
-              <TableHeader>ĐVT</TableHeader>
-              <TableHeader>Số lượng</TableHeader>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>1</TableCell>
-              <TableCell>Paracetamol 500mg</TableCell>
-              <TableCell>Viên</TableCell>
-              <TableCell>20</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>2</TableCell>
-              <TableCell>Amoxicillin 250mg</TableCell>
-              <TableCell>Viên</TableCell>
-              <TableCell>15</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>3</TableCell>
-              <TableCell>Ibuprofen 400mg</TableCell>
-              <TableCell>Viên</TableCell>
-              <TableCell>10</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>4</TableCell>
-              <TableCell>Ciprofloxacin 500mg</TableCell>
-              <TableCell>Viên</TableCell>
-              <TableCell>5</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>5</TableCell>
-              <TableCell>Vitamin C 1000mg</TableCell>
-              <TableCell>Viên</TableCell>
-              <TableCell>30</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-
-        <CloseButton onClick={handleCloseDetail}>Đóng</CloseButton>
-      </Container>
-    </PageWrapper>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeader>STT</TableHeader>
+                <TableHeader>Tên thuốc / Hàm lượng</TableHeader>
+                <TableHeader>ĐVT</TableHeader>
+                <TableHeader>Số lượng</TableHeader>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>1</TableCell>
+                <TableCell>Paracetamol 500mg</TableCell>
+                <TableCell>Viên</TableCell>
+                <TableCell>20</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>2</TableCell>
+                <TableCell>Amoxicillin 250mg</TableCell>
+                <TableCell>Viên</TableCell>
+                <TableCell>15</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>3</TableCell>
+                <TableCell>Ibuprofen 400mg</TableCell>
+                <TableCell>Viên</TableCell>
+                <TableCell>10</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>4</TableCell>
+                <TableCell>Ciprofloxacin 500mg</TableCell>
+                <TableCell>Viên</TableCell>
+                <TableCell>5</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>5</TableCell>
+                <TableCell>Vitamin C 1000mg</TableCell>
+                <TableCell>Viên</TableCell>
+                <TableCell>30</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDetail} color="primary">
+            Đóng
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </ListWrapper>
   );
 };
 
 export default Benhan;
-  

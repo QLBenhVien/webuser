@@ -231,8 +231,7 @@ const DatLichKham = () => {
       bacSi: "",
       chuyenKhoa: "",
     }));
-    setSymptoms("")
-
+    setSymptoms("");
   };
 
   useEffect(() => {
