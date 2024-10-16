@@ -19,10 +19,10 @@ import LichHenKham from "./Pages/DatKham/LichHenKham";
 import LienHe from "./Pages/LienHe/LienHe";
 import PhieuKham from "./Pages/DatKham/PhieuKhamBenh";
 import TinTuc from "./Pages/TinTuc/Tintuc";
-import BenhAn from "./Pages/BenhAn/BenhAn"
+import BenhAn from "./Pages/BenhAn/BenhAn";
 
-
-
+import ResetPassword from "./Pages/Login/ResetPassword";
+import PhieuKhamBenh from "./Pages/DatKham/PhieuKhamBenh";
 // Trong phần Routes
 
 import "@fontsource/roboto/300.css";
@@ -75,6 +75,9 @@ const HoSoCaNhan = () => {
           <Route path="/hoso" element={<Hoso />} />
           <Route path="/thongtincanhan" element={<TaiKhoanUpdate />} />
           <Route path="/lichkham" element={<LichHenKham />} />
+          <Route path="/ketqua" element={<BenhAn />} />
+          <Route path="/phieukham" element={<PhieuKham />} />
+          <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
         </Routes>
       </div>
     </div>
@@ -92,7 +95,9 @@ function App() {
     location.pathname === "/thongtincanhan" ||
     location.pathname === "/ketqua" ||
     location.pathname === "/lichkham" ||
-    location.pathname === "/thongbao";
+    location.pathname === "/thongbao" ||
+    location.pathname === "/phieukham" ||
+    location.pathname === "/chitietlichkham";
   return (
     <div>
       {!isAuthPage && <Navigation />}
@@ -107,10 +112,6 @@ function App() {
         <Route path="/lienhe" element={<LienHe />} />
         <Route path="/tintuc" element={<TinTuc />} />
         <Route path="/datkham" element={<DatKham />} />
-        <Route path="/phieukham" element={<PhieuKham />} />
-
-        <Route path="/chitietlichkham" element={<ChiTietLichKham />} />
-
       </Routes>
       {isUser && <HoSoCaNhan />}
     </div>

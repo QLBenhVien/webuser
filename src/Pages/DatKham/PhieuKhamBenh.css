@@ -1,85 +1,76 @@
-.phieu-kham-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f8ff;
-    border-radius: 10px;
-    height:100vh;
-  }
-  
-  .phieu-kham-title {
-    text-align: left;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .hospital-info {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .hospital-info h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .hospital-info p {
-    margin: 0;
-    font-size: 20px;
-    text-align: left;
-    color: #666;
-  }
-  
-  .phieu-kham {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    margin: 10px 200px;
-    width: 70%;
-  } 
-  
-  .phieu-kham h3 {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .phieu-kham h2 {
-    text-align: center;
-    font-size: 24px;
-    margin: 10px 0;
-    color: #333;
-  }
-  
-  .barcode {
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  .barcode-placeholder {
-    font-size: 24px;
-    letter-spacing: 2px;
-  }
-  
-  .phieu-kham-info {
-    width: 100%;
-    border-collapse: collapse;
-    border:2px solid rgb(244, 228, 228);
-    font-size: 20px;
-  }
-  
-  .phieu-kham-info td {
-    padding: 30px;
-    border: 1px solid #ffffff;
-  }
-  
-  .phieu-kham-info td strong {
-    font-weight: bold;
-  }
-  
-  .phieu-kham-info td {
-    text-align: left;
-  }
-  
+.phieu-kham-title {
+  text-align: left;
+  font-size: 24px;
+  color: #333;
+}
+
+.hospital-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hospital-info h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.hospital-info p {
+  margin: 0;
+  font-size: 20px;
+  text-align: left;
+  color: #666;
+}
+
+.phieu-kham {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  margin: 0 auto; /* Căn giữa */
+  width: 90%; /* Đặt chiều rộng là 90% */
+  max-width: 800px; /* Giới hạn chiều rộng tối đa */
+}
+
+.phieu-kham h3 {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.phieu-kham h2 {
+  text-align: center;
+  font-size: 24px;
+  margin: 10px 0;
+  color: #333;
+}
+
+.barcode {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.barcode-placeholder {
+  font-size: 24px;
+  letter-spacing: 2px;
+}
+
+.phieu-kham-info {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid rgb(244, 228, 228);
+  font-size: 20px;
+}
+
+.phieu-kham-info td {
+  padding: 30px;
+  border: 1px solid #ffffff;
+}
+
+.phieu-kham-info td strong {
+  font-weight: bold;
+}
+
+.phieu-kham-info td {
+  text-align: left;
+}

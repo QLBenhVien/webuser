@@ -14,6 +14,15 @@ const ChiTietLichKham = () => {
     // Bạn có thể thêm logic hủy lịch hẹn ở đây, như gửi yêu cầu đến server
   };
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString("vi-VN", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    });
+  };
+
   const [nameBN, setNameBN] = useState("");
   const [appointment, setAppointment] = useState({});
   const [nameBS, setNameBS] = useState("");
@@ -60,7 +69,7 @@ const ChiTietLichKham = () => {
           </div>
           <div className="form-group">
             <label>Ngày khám:</label>
-            <a type="text">{appointment.NgayDatKham}</a>
+            <a type="text">{formatDate(appointment.NgayDatKham)}</a>
           </div>
           <div className="form-group">
             <label>Triệu chứng:</label>

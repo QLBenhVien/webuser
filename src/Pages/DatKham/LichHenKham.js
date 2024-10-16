@@ -3,29 +3,38 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./LichHenKham.css";
 import axios from "axios";
 
+// Dialog và các thành phần từ Material-UI
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Button from "@mui/material/Button";
+
 // thong bao
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
+// Nội dung của phiếu khám bệnh
+import PhieuKham from "./PhieuKhamBenh";
+
 const LichHenKham = () => {
   const navigate = useNavigate();
-  const location = useLocation(); // Khai báo location
+  const location = useLocation();
 
-  //user
   const [name, setName] = useState("");
-
-  // Khởi tạo state cho danh sách lịch hẹn
   const [appointments, setAppointments] = useState([{}]);
 
-  //thong bao
+  // State quản lý việc hiển thị Dialog
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+  // thong bao
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const handleClose = () => {
     setOpen(false);
   };
-
-  //end thong bao
 
   const token = localStorage.getItem("token");
 
@@ -36,21 +45,10 @@ const LichHenKham = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("res:", res.data.TenBN);
       setName(res.data.TenBN);
-      console.log("name", name);
       setAppointments(res.data.lichkham);
-      console.log("appointments:", appointments);
-      // setSnackbarMessage(res.data.message);
-      // setSnackbarSeverity("success");
-      // setOpen(true);
+      // console.log(appointments)
     } catch (error) {
-      // if (error.response.status === 401) {
-      //   navigate("/login");
-
-      //   localStorage.setItem("token-hethan", "true");
-      //   localStorage.removeItem("token");
-      // }
       console.log(error);
     }
   };
@@ -59,22 +57,16 @@ const LichHenKham = () => {
     fetchData();
   }, []);
 
-  // Nhận thông tin lịch hẹn mới từ state và cập nhật danh sách
-  useEffect(() => {
-    const newAppointment = location.state?.appointment;
-    if (newAppointment) {
-      setAppointments((prev) => {
-        const existingIds = prev.map((app) => app.id);
-        if (!existingIds.includes(newAppointment.id)) {
-          return [...prev, newAppointment]; // Thêm lịch hẹn mới
-        }
-        return prev; // Không thêm nếu ID đã tồn tại
-      });
-    }
-  }, [location.state]);
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString("vi-VN", {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    });
+  };
 
   const handleCancelAppointment = async (id) => {
-    // Xóa lịch hẹn khỏi danh sách
     try {
       const res = await axios.put(
         "http://localhost:8080/user/huylichkham",
@@ -85,7 +77,6 @@ const LichHenKham = () => {
           },
         }
       );
-      console.log(res);
       setSnackbarMessage(res.data.message);
       setSnackbarSeverity("success");
       setOpen(true);
@@ -97,9 +88,17 @@ const LichHenKham = () => {
     }
   };
 
+  const handleClickOpenDialog = (appointment) => {
+    setSelectedAppointment(appointment); // Lưu lịch hẹn được chọn
+    setOpenDialog(true); // Mở Dialog
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false); // Đóng Dialog
+  };
+
   return (
     <div className="app">
-      {/* Sidebar as a simple list in the top-right corner */}
       <Snackbar
         open={open}
         autoHideDuration={6000}
@@ -110,7 +109,7 @@ const LichHenKham = () => {
           {snackbarMessage}
         </MuiAlert>
       </Snackbar>
-      {/* Right Content */}
+
       <div className="layout">
         <div className="main-content">
           <h2 style={{ fontWeight: "bold" }}>Lịch khám của tôi</h2>
@@ -131,19 +130,23 @@ const LichHenKham = () => {
                 <tbody>
                   {appointments.map((appointment, index) => (
                     <tr key={appointment.id}>
-                      <td>{index + 1}</td> {/* Hiển thị STT */}
+                      <td>{index + 1}</td>
                       <td>{name}</td>
-                      <td>{appointment.NgayDatKham}</td>
+                      <td>{formatDate(appointment.NgayDatKham)}</td>
                       <td>
-                        {appointment.TrangThai ? "đã xử lý" : "chưa xử lý"}
+                        {appointment.DaHuy
+                          ? "Đã bị hủy"
+                          : appointment.TrangThai
+                          ? "Đặt Lịch thành công"
+                          : "Chưa xử lý"}
                       </td>
                       <td>
                         <button
-                          onClick={() => {
-                            // Điều hướng đến trang chi tiết và truyền dữ liệu
-                            navigate("/chitietlichkham", {
-                              state: { id: appointment._id },
-                            });
+                          onClick={() => handleClickOpenDialog(appointment)}
+                          disabled={appointment.DaHuy ? true : false}
+                          style={{
+                            border: "none",
+                            backgroundColor: "#fff",
                           }}
                         >
                           Xem
@@ -168,6 +171,24 @@ const LichHenKham = () => {
           </div>
         </div>
       </div>
+
+      {/* Dialog hiển thị phiếu khám bệnh */}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth="md" // Giới hạn chiều rộng tối đa của dialog
+        fullWidth={true} // Đặt dialog chiếm toàn bộ chiều rộng cho phù hợp với nội dung
+      >
+        <DialogTitle>Phiếu khám bệnh</DialogTitle>
+        <DialogContent>
+          {selectedAppointment && (
+            <PhieuKham appointment={selectedAppointment._id} />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Đóng</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
