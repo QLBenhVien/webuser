@@ -207,7 +207,7 @@ const DatLichKham = () => {
         MaBN: user.id,
         MaKhoa: clinic.id,
         NgayDat: dataPhieu.ngayKham,
-        CaKham: dataPhieu.CaKham,
+        CaKham: dataPhieu.caKham,
         TrieuChung: symptoms,
       });
       console.log(res);
