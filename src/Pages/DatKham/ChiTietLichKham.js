@@ -44,6 +44,7 @@ const ChiTietLichKham = () => {
           },
         }
       );
+      console.log("da fetch");
       setNameBN(res.data.TenBN);
       setNameBS(res.data.TenBS);
       setAppointment(res.data.lichkham);
@@ -81,7 +82,7 @@ const ChiTietLichKham = () => {
           </div>
           <div className="form-group">
             <label>Ca khám:</label>
-            <a type="text">{appointment.CaKham}</a>
+            <a type="text">{formatDate(appointment.CaKham)}</a>
           </div>
           <div className="form-group">
             <label>Trạng thái:</label>

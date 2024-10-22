@@ -1,26 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./PhieuKhamBenh.css"; // Import file CSS
 import Axios from "../../Axios/axios";
+import QRCodeComponent from "../../components/QRCodeComponent";
 const PhieuKham = ({ appointment }) => {
-  console.log(appointment);
+  // console.log(appointment);
 
-  const id = appointment;
-  const fetchData = async () => {
-    try {
-      const res = await Axios.put("/user/xemphieukham", {
-        id: id,
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (appointment && appointment._id) {
-      fetchData();
-    }
-  }, [appointment]);
   // Nếu không có dữ liệu lịch hẹn, không hiển thị gì
   if (!appointment) return null;
   return (
@@ -36,7 +20,9 @@ const PhieuKham = ({ appointment }) => {
 
       <div className="barcode">
         {/* Chèn mã vạch ở đây nếu có */}
-        <div className="barcode-placeholder">||||||||||||||||||||||</div>
+        <div className="barcode-placeholder">
+          <QRCodeComponent />
+        </div>
       </div>
 
       <table className="phieu-kham-info">

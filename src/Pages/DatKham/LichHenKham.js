@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./LichHenKham.css";
 import axios from "axios";
+import Axios from "../../Axios/axios";
 
 // Dialog và các thành phần từ Material-UI
 import Dialog from "@mui/material/Dialog";
@@ -17,6 +18,7 @@ import MuiAlert from "@mui/material/Alert";
 // Nội dung của phiếu khám bệnh
 import PhieuKham from "./PhieuKhamBenh";
 
+const today = new Date(); // Lấy ngày hiện tại
 const LichHenKham = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,7 +49,8 @@ const LichHenKham = () => {
       });
       setName(res.data.TenBN);
       setAppointments(res.data.lichkham);
-      // console.log(appointments)
+      // console.log(appointments);
+      console.log("phieu kham page");
     } catch (error) {
       console.log(error);
     }
@@ -88,9 +91,30 @@ const LichHenKham = () => {
     }
   };
 
-  const handleClickOpenDialog = (appointment) => {
-    setSelectedAppointment(appointment); // Lưu lịch hẹn được chọn
-    setOpenDialog(true); // Mở Dialog
+  const handleClickOpenDialog = async (appointment) => {
+    try {
+      const res = await Axios.put("/user/xemphieukham", {
+        id: appointment,
+      });
+      console.log(res);
+      setSelectedAppointment({
+        sttKham: res.data.data.data.sttKham || "N/A", // Số thứ tự khám
+        TenBN: res.data.data.data.tenbn,
+        GioiTinh: res.data.data.data.gioitinh,
+        Tuoi: res.data.data.data.ngaysinh
+          ? new Date().getFullYear() -
+            new Date(res.data.data.data.ngaysinh).getFullYear()
+          : "N/A", // Tính tuổi từ ngày sinh
+        SoDienThoai: res.data.data.data.sdt,
+        DiaChi: res.data.data.data.diachi,
+        TenBacSi: res.data.data.data.tenbs,
+        NgayKham: res.data.data.data.ngaykham,
+        CaKham: res.data.data.data.cakham,
+      });
+      setOpenDialog(true); // Mở Dialog khi nhận dữ liệu thành công
+    } catch (error) {
+      console.log("Lỗi khi lấy phiếu khám: ", error);
+    }
   };
 
   const handleCloseDialog = () => {
@@ -129,7 +153,7 @@ const LichHenKham = () => {
                 </thead>
                 <tbody>
                   {appointments.map((appointment, index) => (
-                    <tr key={appointment.id}>
+                    <tr key={appointment._id}>
                       <td>{index + 1}</td>
                       <td>{name}</td>
                       <td>{formatDate(appointment.NgayDatKham)}</td>
@@ -142,7 +166,7 @@ const LichHenKham = () => {
                       </td>
                       <td>
                         <button
-                          onClick={() => handleClickOpenDialog(appointment)}
+                          onClick={() => handleClickOpenDialog(appointment._id)}
                           disabled={appointment.DaHuy ? true : false}
                           style={{
                             border: "none",
@@ -153,13 +177,15 @@ const LichHenKham = () => {
                         </button>
                       </td>
                       <td>
-                        <button
-                          onClick={() =>
-                            handleCancelAppointment(appointment._id)
-                          }
-                        >
-                          Hủy
-                        </button>
+                        {!appointment.TrangThai && (
+                          <button
+                            onClick={() =>
+                              handleCancelAppointment(appointment._id)
+                            }
+                          >
+                            Hủy
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -182,7 +208,7 @@ const LichHenKham = () => {
         <DialogTitle>Phiếu khám bệnh</DialogTitle>
         <DialogContent>
           {selectedAppointment && (
-            <PhieuKham appointment={selectedAppointment._id} />
+            <PhieuKham appointment={selectedAppointment} />
           )}
         </DialogContent>
         <DialogActions>
