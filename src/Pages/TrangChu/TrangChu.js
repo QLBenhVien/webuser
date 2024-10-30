@@ -11,6 +11,7 @@ import bacsi1 from "../../images/images-bacsi/bacsi1.png";
 import bacsi2 from "../../images/images-bacsi/bacsi2.png";
 import bacsi3 from "../../images/images-bacsi/bacsi3.png";
 import "font-awesome/css/font-awesome.min.css";
+import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -392,53 +393,9 @@ const TrangChu = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div
-                class="elementor-column"
-                data-id="fa1f855"
-                data-element_type="column"
-              >
-                <div class="elementor-widget-wrap">
-                  <div
-                    class="elementor-element"
-                    data-id="9b11bb8"
-                    data-element_type="widget"
-                    data-widget_type="icon.default"
-                  >
-                    <div class="elementor-widget-container">
-                      <div class="elementor-icon-wrapper">
-                        <div class="elementor-icon">
-                          <i aria-hidden="true" class="fas fa-bed"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="elementor-element"
-                    data-id="8fe471d"
-                    data-element_type="widget"
-                    data-widget_type="counter.default"
-                  >
-                    <div class="elementor-widget-container">
-                      <div class="elementor-counter">
-                        <div class="elementor-counter-title">giường bệnh</div>
-                        <div class="elementor-counter-number-wrapper">
-                          <span class="elementor-counter-number-prefix"></span>
-                          <span
-                            class="elementor-counter-number"
-                            data-duration="2000"
-                            data-to-value="1200"
-                            data-from-value="500"
-                          >
-                            1200
-                          </span>
-                          <span class="elementor-counter-number-suffix">+</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                {/* 7. Footer */}
+                <Footer />
+
             </div>
           </div>
         </div>

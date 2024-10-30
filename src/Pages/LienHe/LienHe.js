@@ -14,6 +14,17 @@ const theme = createTheme({
   },
 });
 
+// Add a CSS class for the hover effect
+const styles = {
+  hoverEffect: {
+    color: '#22668E',
+    transition: 'transform 0.3s ease', // Smooth transition
+    '&:hover': {
+      transform: 'scale(1.05)', // Slightly enlarge the text
+    },
+  },
+};
+
 const LienHe = () => {
   return (
     <div style={{ backgroundColor: '#E1F5FE', minHeight: '100vh', padding: '1 0px' }}>
@@ -38,10 +49,10 @@ const LienHe = () => {
         </Typography>
         <Grid container spacing={2} sx={{ marginTop: 2 }}>
           <Grid item xs={12} md={6}>
-            <Typography sx={{ color: '#22668E' }}>Địa chỉ: [Nhập địa chỉ của bệnh viện]</Typography>
-            <Typography sx={{ color: '#22668E' }}>Số điện thoại: [Nhập số điện thoại]</Typography>
-            <Typography sx={{ color: '#22668E' }}>Email: [Nhập địa chỉ email]</Typography>
-            <Typography sx={{ color: '#22668E' }}>Website: [Nhập URL trang web]</Typography>
+            <Typography sx={styles.hoverEffect}>Địa chỉ: [Nhập địa chỉ của bệnh viện]</Typography>
+            <Typography sx={styles.hoverEffect}>Số điện thoại: [Nhập số điện thoại]</Typography>
+            <Typography sx={styles.hoverEffect}>Email: [Nhập địa chỉ email]</Typography>
+            <Typography sx={styles.hoverEffect}>Website: [Nhập URL trang web]</Typography>
           </Grid>
           <Grid item xs={12} md={6}>
   <div
