@@ -32,6 +32,7 @@ import "@fontsource/roboto/700.css";
 import Hoso from "./Pages/HoSoBA/Hoso";
 import TaiKhoanUpdate from "./Pages/TaiKhoan/TaiKhoanUpdate";
 import Nav from "./components/Nav";
+import { NotificationProvider } from "./context/NotificationContext";
 
 // // icon flag
 // import SpeedDial from "@mui/material/SpeedDial";
@@ -121,7 +122,9 @@ function App() {
 export default function AppWrapper() {
   return (
     <Router>
-      <App />
+      <NotificationProvider>
+        <App />
+      </NotificationProvider>
     </Router>
   );
 }
