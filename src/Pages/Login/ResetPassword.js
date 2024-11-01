@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Login.css"; // Import CSS file
+import "./Login.css";
 import logo from "../../images/logo.png";
 import doctor from "../../images/doctor.png";
 import backgroundImage from "../../images/background_img.png";
@@ -7,22 +7,45 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+
 const Register = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [open, setOpen] = useState(false); // Trạng thái để mở hoặc đóng Snackbar
-  const [snackbarMessage, setSnackbarMessage] = useState(""); // Lưu tin nhắn của Snackbar
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success"); // Đặt mức độ của Snackbar (success, error)
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleResetPasswprd = async () => {
-    console.log(`email: ${email} | password: ${password} `);
+  const validateEmail = (value) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!value) return "Email không được để trống.";
+    if (!regex.test(value)) return "Email không hợp lệ.";
+    return "";
+  };
+
+  const validatePassword = (value) => {
+    if (!value) return "Mật khẩu không được để trống.";
+    if (value.length < 6) return "Mật khẩu phải có ít nhất 6 ký tự.";
+    return "";
+  };
+
+  const handleResetPassword = async () => {
+    const emailValidationError = validateEmail(email);
+    const passwordValidationError = validatePassword(password);
+
+    if (emailValidationError || passwordValidationError) {
+      setEmailError(emailValidationError);
+      setPasswordError(passwordValidationError);
+      return;
+    }
+
     try {
       const response = await axios.put(
         "http://localhost:8080/user/resetpassword",
@@ -33,17 +56,15 @@ const Register = () => {
       );
 
       console.log(response);
-      //   localStorage.setItem("registerSuccess", "true");
-
       navigate("/login");
     } catch (error) {
       console.log(error);
-
       setSnackbarMessage(error.response.data.errorMessage);
       setSnackbarSeverity("error");
       setOpen(true);
     }
   };
+
   return (
     <div
       className="AppContainer"
@@ -79,16 +100,26 @@ const Register = () => {
             type="text"
             placeholder="Nhập email"
             className="input"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError(validateEmail(e.target.value));
+            }}
             value={email}
           />
+          {emailError && <div className="error-message">{emailError}</div>}
+
           <input
             type="text"
             placeholder="Nhập password muốn reset"
             className="input"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setPasswordError(validatePassword(e.target.value));
+            }}
             value={password}
           />
+          {passwordError && <div className="error-message">{passwordError}</div>}
+
           <div className="boxbutton">
             <div
               style={{
@@ -105,7 +136,7 @@ const Register = () => {
                 Trở lại đăng nhập?
               </button>
             </div>
-            <button onClick={handleResetPasswprd} className="button">
+            <button onClick={handleResetPassword} className="button">
               Lấy lại mật khẩu
             </button>
           </div>
