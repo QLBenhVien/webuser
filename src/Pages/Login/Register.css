@@ -125,3 +125,22 @@
     display: none;
   }
 }
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.password-input-container {
+  display: flex;
+  align-items: center;
+}
+.input {
+  width: 100%; /* Chiếm toàn bộ chiều rộng của hộp cha */
+  padding: 10px; /* Thêm khoảng đệm cho ô nhập */
+  border: 1px solid #ccc; /* Đường viền xám nhạt */
+  border-radius: 4px; /* Bo góc */
+  margin-bottom: 10px; /* Khoảng cách giữa các ô nhập */
+  box-sizing: border-box; /* Đảm bảo padding và border nằm trong kích thước */
+}

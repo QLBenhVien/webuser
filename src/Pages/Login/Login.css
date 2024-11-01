@@ -70,16 +70,6 @@
   max-width: 400px;
 }
 
-.input {
-  display: block;
-  margin: 10px 0;
-  padding: 10px;
-  width: 90%;
-
-  border-style: none;
-  border-radius: 10px;
-}
-
 .button {
   background-color: #fff;
   color: #000;
@@ -124,4 +114,49 @@
   .RightContainer {
     display: none;
   }
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  text-align: left;
+  margin-top: 5px;
+}
+
+/* Add these styles to your Login.css */
+.input-container {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+}
+
+.input {
+  width: 100%; /* Full width for the input */
+  padding: 10px; /* Add some padding for better appearance */
+}
+.password-input-container {
+  position: relative; /* Để cho icon có thể được định vị tương đối */
+}
+
+.password-input {
+  width: 100%; /* Đảm bảo ô nhập mật khẩu chiếm toàn bộ chiều rộng */
+  padding-right: 40px; /* Thêm khoảng cách bên phải cho icon */
+}
+
+.password-toggle-icon {
+  position: absolute; /* Định vị icon tương đối với ô nhập */
+  right: 10px; /* Khoảng cách từ bên phải */
+  top: 50%; /* Đưa icon vào giữa ô nhập */
+  transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+  cursor: pointer; /* Thay đổi con trỏ khi hover */
+}
+
+.password-input-icon {
+  position: absolute; /* Absolutely position the icon */
+  right: 10px; /* Distance from the right */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Perfectly center vertically */
+  cursor: pointer; /* Change cursor on hover */
+  z-index: 1; /* Ensure icon is above the input */
+  width: 24px; /* Adjust the icon size as needed */
+  height: 24px; /* Adjust the icon size as needed */
 }
