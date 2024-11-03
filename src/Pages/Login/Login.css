@@ -116,18 +116,21 @@
   }
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column; /* Xếp các phần tử con theo chiều dọc */
+  align-items: flex-start; /* Căn trái cho thông báo lỗi */
+  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+
 .error-message {
   color: red;
   font-size: 0.9em;
-  text-align: left;
   margin-top: 5px;
+  text-align: left; /* Đảm bảo lỗi nằm ở bên trái */
+  width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng của input-container */
 }
 
-/* Add these styles to your Login.css */
-.input-container {
-  display: flex;
-  align-items: center; /* Align items vertically centered */
-}
 
 .input {
   width: 100%; /* Full width for the input */
