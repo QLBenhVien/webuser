@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import DanhGia from "./DanhGia";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import "./TrangChu.css";
@@ -480,7 +481,8 @@ const TrangChu = () => {
           <h2>Hotline: 0962 240 221</h2>
           <button>Tìm hiểu thêm</button>
         </div>
-        {/* 6. Góp ý liên hệ */}
+        <DanhGia/>
+        {/* 6. Góp ý liên hệ
         <div className="feedback-trangchu-section">
           <h2>LIÊN HỆ VỚI CHÚNG TÔI</h2>
 
@@ -537,7 +539,7 @@ const TrangChu = () => {
               </form>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* 7. Footer */}
         <footer>
           <div className="footer-trangchu-left">

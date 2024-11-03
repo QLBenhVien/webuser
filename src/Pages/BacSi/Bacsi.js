@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 // Styled components
 const Container = styled.div`
@@ -95,49 +96,28 @@ const PageNumber = styled.span`
   font-weight: ${({ active }) => (active ? "bold" : "normal")};
 `;
 
-// Fake data
-const doctors = [
-  {
-    id: 1,
-    name: "Bác sĩ Nguyễn Văn An",
-    specialty: "Nội khoa",
-    experience: "Với hơn 20 năm kinh nghiệm trong lĩnh vực nội khoa...",
-    detailedInfo: "Bác sĩ Nguyễn Văn An là một chuyên gia uy tín trong lĩnh vực nội khoa với hơn 20 năm kinh nghiệm...",
-    imageUrl: "https://via.placeholder.com/120",
-  },
-  {
-    id: 2,
-    name: "Bác sĩ Trần Thị Bích",
-    specialty: "Nhi khoa",
-    experience: "Đã điều trị thành công nhiều ca bệnh phức tạp liên quan đến nhi khoa...",
-    detailedInfo: "Bác sĩ Trần Thị Bích có nhiều năm kinh nghiệm trong việc điều trị các bệnh lý phức tạp của trẻ em...",
-    imageUrl: "https://via.placeholder.com/120",
-  },
-  {
-    id: 3,
-    name: "Bác sĩ Phạm Văn Hưng",
-    specialty: "Tim mạch",
-    experience: "Chuyên gia hàng đầu trong lĩnh vực điều trị bệnh tim mạch...",
-    detailedInfo: "Bác sĩ Phạm Văn Hưng đã công tác tại nhiều bệnh viện lớn và tham gia nghiên cứu về các bệnh lý tim mạch...",
-    imageUrl: "https://via.placeholder.com/120",
-  },
-  {
-    id: 4,
-    name: "Bác sĩ Lê Thị Hoa",
-    specialty: "Hô hấp",
-    experience: "Chuyên điều trị các bệnh về đường hô hấp cho cả trẻ em và người lớn...",
-    detailedInfo: "Bác sĩ Lê Thị Hoa có hơn 15 năm kinh nghiệm trong việc điều trị các bệnh lý liên quan đến hô hấp...",
-    imageUrl: "https://via.placeholder.com/120",
-  },
-  // Add more doctors as needed
-];
-
 const Bacsi = () => {
+  const [doctors, setDoctors] = useState([]); // Dữ liệu bác sĩ sẽ được lưu ở đây
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedDoctor, setSelectedDoctor] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const doctorsPerPage = 2;
+
+  useEffect(() => {
+    // Hàm gọi API
+    const fetchDoctors = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/doctors"); // Gọi API
+        setDoctors(response.data); // Lưu dữ liệu vào state
+      } catch (error) {
+        console.error("Error fetching doctors:", error);
+      }
+    };
+
+    fetchDoctors(); // Gọi hàm để lấy dữ liệu khi component được render
+  }, []); // Chỉ gọi 1 lần khi component được mount
+
   const indexOfLastDoctor = currentPage * doctorsPerPage;
   const indexOfFirstDoctor = indexOfLastDoctor - doctorsPerPage;
 
@@ -149,7 +129,7 @@ const Bacsi = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    setSelectedDoctor(null); // Close detail view when changing page
+    setSelectedDoctor(null); // Đóng chi tiết khi thay đổi trang
   };
 
   return (
@@ -157,17 +137,22 @@ const Bacsi = () => {
       <InfoText>ĐỘI NGŨ Y - BÁC SĨ</InfoText>
       {/* Ẩn thanh tìm kiếm và pagination khi đã chọn bác sĩ */}
       {selectedDoctor ? (
-        <>
-          <DoctorCard isDetail>
-            <DoctorImage src={selectedDoctor.imageUrl} alt={selectedDoctor.name} />
-            <DoctorInfo>
-              <h2>{selectedDoctor.name}</h2>
-              <p>{selectedDoctor.detailedInfo}</p>
-            </DoctorInfo>
-            <CloseButton onClick={() => setSelectedDoctor(null)}>Đóng</CloseButton>
-          </DoctorCard>
-        </>
-      ) : (
+  <DoctorCard isDetail>
+    <DoctorImage src={selectedDoctor.imageUrl} alt={selectedDoctor.name} />
+    <DoctorInfo>
+      <h2>{selectedDoctor.name}</h2>
+      <p>Chuyên môn: {selectedDoctor.specialty}</p>
+      <p>Kinh nghiệm: {selectedDoctor.experience}</p>
+      <p>Tuổi: {selectedDoctor.age}</p>
+      <p>Số điện thoại: {selectedDoctor.phone}</p>
+      <p>Email: {selectedDoctor.email}</p>
+      <p>Ngày sinh: {selectedDoctor.dateOfBirth}</p>
+      <p>Mô tả: {selectedDoctor.description}</p>
+      <p>Thông tin chi tiết: {selectedDoctor.detailedInfo}</p>
+    </DoctorInfo>
+    <CloseButton onClick={() => setSelectedDoctor(null)}>Đóng</CloseButton>
+  </DoctorCard>
+) : (
         <>
           <SearchInput
             type="text"

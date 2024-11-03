@@ -1,0 +1,57 @@
+{
+    "doctors": [
+      {
+        "id": 1,
+        "name": "Bác sĩ Ngọc Duy",
+        "specialty": "Nội khoa",
+        "experience": "Với hơn 20 năm kinh nghiệm trong lĩnh vực nội khoa...",
+        "detailedInfo": "Bác sĩ Nguyễn Văn An là một chuyên gia uy tín trong lĩnh vực nội khoa với hơn 20 năm kinh nghiệm...",
+        "age": 45,
+        "phone": "0123456789",
+        "email": "ngocduy@gmail.com",
+        "dateOfBirth": "1979-05-15",
+        "description": "Tôi yêu nghề y và luôn cố gắng học hỏi để phục vụ bệnh nhân tốt nhất.",
+        "imageUrl": "https://via.placeholder.com/120"
+      },
+      {
+        "id": 2,
+        "name": "Bác sĩ Nguyễn Thị Minh Tâm",
+        "specialty": "Nhi khoa",
+        "experience": "Đã điều trị thành công nhiều ca bệnh phức tạp liên quan đến nhi khoa...",
+        "detailedInfo": "Bác sĩ Trần Thị Bích có nhiều năm kinh nghiệm trong việc điều trị các bệnh lý phức tạp của trẻ em...",
+        "age": 38,
+        "phone": "0987654321",
+        "email": "minhtam@gmail.com",
+        "dateOfBirth": "1986-08-20",
+        "description": "Tôi rất đam mê chăm sóc trẻ em và luôn mong muốn mang lại sức khỏe tốt nhất cho các bé.",
+        "imageUrl": "https://via.placeholder.com/120"
+      },
+      {
+        "id": 3,
+        "name": "Bác sĩ Ngô Gia Bảo",
+        "specialty": "Tim mạch",
+        "experience": "Chuyên gia hàng đầu trong lĩnh vực điều trị bệnh tim mạch...",
+        "detailedInfo": "Bác sĩ Phạm Văn Hưng đã công tác tại nhiều bệnh viện lớn và tham gia nghiên cứu về các bệnh lý tim mạch...",
+        "age": 50,
+        "phone": "0912345678",
+        "email": "giabao@gmail.com",
+        "dateOfBirth": "1974-02-10",
+        "description": "Tôi luôn nỗ lực để cập nhật kiến thức mới nhất trong lĩnh vực tim mạch.",
+        "imageUrl": "https://via.placeholder.com/120"
+      },
+      {
+        "id": 4,
+        "name": "Bác sĩ Nguyễn Phan Duy Nhất",
+        "specialty": "Da liễu",
+        "experience": "Có nhiều năm kinh nghiệm trong điều trị các bệnh lý về da...",
+        "detailedInfo": "Bác sĩ Lê Thị Hoa chuyên điều trị các bệnh về da, với nhiều nghiên cứu và bài viết chuyên môn...",
+        "age": 42,
+        "phone": "0934567890",
+        "email": "duynhat@gmail.com",
+        "dateOfBirth": "1982-11-30",
+        "description": "Tôi luôn tìm kiếm giải pháp tối ưu cho các vấn đề về da của bệnh nhân.",
+        "imageUrl": "https://via.placeholder.com/120"
+      }
+    ]
+  }
+  
