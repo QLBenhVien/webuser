@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Footer from "../TrangChu/Footer";
 
 // Styled components
 const Container = styled.div`
@@ -153,7 +154,8 @@ const Bacsi = () => {
   };
 
   return (
-    <Container>
+    <div>
+      <Container>
       <InfoText>ĐỘI NGŨ Y - BÁC SĨ</InfoText>
       {/* Ẩn thanh tìm kiếm và pagination khi đã chọn bác sĩ */}
       {selectedDoctor ? (
@@ -203,6 +205,8 @@ const Bacsi = () => {
         </>
       )}
     </Container>
+    <Footer></Footer>
+    </div>
   );
 };
 

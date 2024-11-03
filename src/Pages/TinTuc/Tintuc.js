@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import Footer from "../TrangChu/Footer";
 // Styled components
 const Container = styled.div`
   width: 80%; 
@@ -167,7 +167,8 @@ const Tintuc = () => {
   };
 
   return (
-    <Container>
+   <div>
+     <Container>
       <InfoText>TIN TỨC</InfoText>
       {/* Chỉ hiển thị SearchInput khi không có tin tức nào được chọn */}
       {!selectedNews && (
@@ -215,7 +216,14 @@ const Tintuc = () => {
           </Pagination>
         </>
       )}
+     
     </Container>
+    <div><Footer></Footer></div>
+   </div>
+  
+   
+  
+    
   );
 };
 

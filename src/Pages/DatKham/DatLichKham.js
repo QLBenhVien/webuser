@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import ScheduleTable from "../../components/ScheduleTable";
 import axios from "axios";
+import Footer from "../TrangChu/Footer";
 
 // thong bao
 import Snackbar from "@mui/material/Snackbar";
@@ -251,7 +252,8 @@ const DatLichKham = () => {
   }, []);
 
   return (
-    <main className="datlich-main">
+   <div>
+     <main className="datlich-main">
       {/* Sidebar as a simple list in the top-right corner */}
       <Snackbar
         open={open}
@@ -415,7 +417,11 @@ const DatLichKham = () => {
           </button>
         </div>
       </div>
+      
     </main>
+    <Footer></Footer>
+   
+   </div>
   );
 };
 

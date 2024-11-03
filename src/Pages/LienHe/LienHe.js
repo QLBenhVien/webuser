@@ -3,6 +3,7 @@ import { Container, Typography, Grid, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices'; // Nhập biểu tượng
 import logo from "../../images/logo.png"
+import Footer from '../TrangChu/Footer';
 // Tạo theme tùy chỉnh
 const theme = createTheme({
   palette: {
@@ -80,6 +81,7 @@ const LienHe = () => {
           </Typography>
         </Box>
       </Container>
+      <Footer></Footer>
     </div>
   );
 };

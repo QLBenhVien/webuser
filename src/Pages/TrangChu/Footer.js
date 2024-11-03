@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Footer = () => (
-    <footer>
+    <footer style={{ marginTop: '20px' }}>
         <div className="footer-trangchu-left">
             <h4>Công ty cổ phần trung tâm y khoa UMC</h4>
             <p>
