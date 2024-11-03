@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./TaiKhoanUpdate.css"; // Add this to style the page
+import "./TaiKhoanUpdate.css"; // Thêm CSS cho trang
 import { useNavigate } from "react-router-dom";
 import CreateIcon from "@mui/icons-material/Create";
 import axios from "axios";
 import axiosInstance from "../../Axios/axios";
-// Import Notifications component
 import Notifications from "../../components/Notification"; // Đường dẫn tới file Notifications của bạn
 
 function TaiKhoanUpdate() {
@@ -14,6 +13,7 @@ function TaiKhoanUpdate() {
     email: "",
   });
   const [statusChinhsua, setStatusChinhSua] = useState(false);
+  const [loading, setLoading] = useState(false); // Thêm state cho loading
 
   // Thông báo
   const [open, setOpen] = useState(false);
@@ -24,13 +24,69 @@ function TaiKhoanUpdate() {
     setOpen(false);
   };
 
+  // Hàm kiểm tra định dạng email
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  // Hàm kiểm tra username
+  const validateUsername = (username) => {
+    const regex = /^[\p{L}\s]+$/u; // Cho phép tất cả các chữ cái (bao gồm tiếng Việt) và khoảng trắng
+    return regex.test(username);
+  };
+
   const handleSave = async () => {
-    // Logic cho nút Lưu thay đổi
+    if (!user.name) {
+      setSnackbarMessage("Vui lòng nhập Tên người dùng");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    if (!validateUsername(user.name)) {
+      setSnackbarMessage("Tên người dùng không được chứa số hoặc ký tự đặc biệt");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    if (user.name.length < 3 || user.name.length > 20) { // Độ dài tên người dùng
+      setSnackbarMessage("Tên người dùng phải có độ dài từ 3 đến 20 ký tự");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    if (!user.email) {
+      setSnackbarMessage("Vui lòng nhập Email");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    if (!validateEmail(user.email)) {
+      setSnackbarMessage("Email không hợp lệ");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    if (user.email.length < 5 || user.email.length > 30) { // Độ dài email
+      setSnackbarMessage("Email phải có độ dài từ 5 đến 30 ký tự");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    setLoading(true); // Bắt đầu loading
     try {
+      const token = localStorage.getItem("token"); // Lấy token
       const res = await axios.put(
         "http://localhost:8080/user/updateMyAccountInfo",
         {
           username: user.name,
+          email: user.email, // Đảm bảo gửi email
         },
         {
           headers: {
@@ -44,9 +100,12 @@ function TaiKhoanUpdate() {
       setOpen(true);
       setStatusChinhSua(false);
     } catch (error) {
-      setSnackbarMessage(error.response.data.message); // Sửa lỗi chỗ này nếu có
+      const message = error.response?.data?.message || "Có lỗi xảy ra";
+      setSnackbarMessage(message);
       setSnackbarSeverity("error");
       setOpen(true);
+    } finally {
+      setLoading(false); // Kết thúc loading
     }
   };
 
@@ -54,37 +113,36 @@ function TaiKhoanUpdate() {
     setUser(updatedUser);
   };
 
-  const token = localStorage.getItem("token");
-
-  const fecthdata = async () => {
+  const fetchData = async () => {
+    setLoading(true);
     try {
       const res = await axiosInstance.get("/user/me");
-
       setUser({
         name: res.data.data.myTK.username,
         email: res.data.data.myTK.email,
       });
     } catch (error) {
-      setSnackbarMessage(error.response.data.message); // Sửa lỗi chỗ này nếu có
+      const message = error.response?.data?.message || "Có lỗi xảy ra";
+      setSnackbarMessage(message);
       setSnackbarSeverity("error");
       setOpen(true);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fecthdata();
-  }, [token]);
+    fetchData();
+  }, []);
 
   return (
     <div className="profile-container">
-      {/* Sidebar as a simple list in the top-right corner */}
       <Notifications
         isOpen={open}
         message={snackbarMessage}
         status={snackbarSeverity}
         handleClose={handleClose}
       />
-      {/* Right Content */}
       <div className="content">
         <h2 className="account-title">THÔNG TIN TÀI KHOẢN</h2>
 
@@ -149,8 +207,12 @@ function TaiKhoanUpdate() {
             >
               Hủy
             </button>
-            <button className="save-button" onClick={handleSave}>
-              Lưu thay đổi
+            <button 
+              className="save-button" 
+              onClick={handleSave}
+              disabled={loading} // Vô hiệu hóa nút khi đang lưu
+            >
+              {loading ? "Đang lưu..." : "Lưu thay đổi"}
             </button>
           </div>
         )}

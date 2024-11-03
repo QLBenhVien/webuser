@@ -129,7 +129,7 @@ const Navigation = () => {
                       <MenuItem
                         className="menu-item"
                         onClick={() => {
-                          navigate("/ketquakhambenh");
+                          navigate("/ketqua");
                           handleClose();
                         }}
                       >

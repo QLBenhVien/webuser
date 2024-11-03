@@ -36,18 +36,87 @@ function Hoso() {
 
   // Hàm xử lý khi nhấn nút Cập nhật
   const handleSubmit = async () => {
+    // Validate tên bệnh nhân
+    if (!formData.Ten) {
+      setSnackbarMessage("Vui lòng nhập tên bệnh nhân.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate giới tính
+    if (!formData.GioiTinh || formData.GioiTinh === "-1") {
+      setSnackbarMessage("Vui lòng chọn giới tính.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate ngày sinh
+    if (!formData.NgaySinh) {
+      setSnackbarMessage("Vui lòng nhập ngày sinh.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate số CCCD
+    if (!formData.CCCD) {
+      setSnackbarMessage("Vui lòng nhập số CCCD.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate cấp ngày
+    if (!formData.CCCD_ngayCap) {
+      setSnackbarMessage("Vui lòng nhập ngày cấp.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate nơi cấp
+    if (!formData.CCCD_noiCap) {
+      setSnackbarMessage("Vui lòng nhập nơi cấp.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate địa chỉ
+    if (!formData.DiaChi) {
+      setSnackbarMessage("Vui lòng nhập địa chỉ.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate số điện thoại
+    if (!formData.SDT) {
+      setSnackbarMessage("Vui lòng nhập số điện thoại.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
+    // Validate nghề nghiệp
+    if (!formData.Job) {
+      setSnackbarMessage("Vui lòng nhập nghề nghiệp.");
+      setSnackbarSeverity("error");
+      setOpen(true);
+      return;
+    }
+
     try {
-      console.log(formData);
       const res = await axiosInstance.put("/user/capnhathoso", {
         data: formData,
       });
-      console.log(res);
       setStatusChinhSua(!statusChinhsua);
       setSnackbarMessage(res.data?.message || "Cập nhật thành công");
       setSnackbarSeverity("success");
       setOpen(true);
     } catch (error) {
-      console.log(error);
       setSnackbarMessage(error.response?.data?.errorMessage || "Có lỗi xảy ra");
       setSnackbarSeverity("error");
       setOpen(true);
