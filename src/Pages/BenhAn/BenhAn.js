@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import axiosInstance from "../../Axios/axios";
+import QRCodeComponent from "../../components/QRCodeComponent";
 const ListWrapper = styled.div`
   width: 80%;
   max-width: auto; /* Tăng chiều rộng */
@@ -141,14 +143,36 @@ const TableBody = styled.tbody``;
 
 const Benhan = () => {
   const [showDetail, setShowDetail] = useState(false);
+  const [dataBenhNhanDetail, setDataBenhNhanDetail] = useState();
+  const [dataThuocDetail, setDataThuocDetail] = useState();
 
-  const handleViewDetail = () => {
+  const handleViewDetail = async (id) => {
+    console.log(id);
+    const res = await axiosInstance.get(`/user/detail_phieukham/${id}`);
+    console.log(res);
+    setDataBenhNhanDetail(res.data.data.phieukham);
+    console.log("phieukham:", dataBenhNhanDetail);
+    setDataThuocDetail(res.data.data.medicationDetails);
+    console.log("thuoc", dataThuocDetail);
     setShowDetail(true);
   };
 
   const handleCloseDetail = () => {
     setShowDetail(false);
   };
+
+  const [data, setData] = useState();
+  const fetchData = async () => {
+    try {
+      const res = await axiosInstance.get("/user/tatca_ketquakhambenh");
+      setData(res.data.data.phieukham);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <ListWrapper>
@@ -165,15 +189,22 @@ const Benhan = () => {
             </TableListRow>
           </thead>
           <tbody>
-            <TableListRow>
-              <TableListCell>1</TableListCell>
-              <TableListCell>Ngọc Duy</TableListCell>
-              <TableListCell>Đau đầu</TableListCell>
-              <TableListCell>03/09/2024</TableListCell>
-              <TableListCell>
-                <Button onClick={handleViewDetail}>Xem</Button>
-              </TableListCell>
-            </TableListRow>
+            {data &&
+              data.map((item, index) => (
+                <TableListRow key={index}>
+                  <TableListCell>{index + 1}</TableListCell>
+                  <TableListCell>{item.MaBenhNhan?.Ten}</TableListCell>
+                  <TableListCell>
+                    {item.TrieuChung ? item.TrieuChung : "Bình thường"}
+                  </TableListCell>
+                  <TableListCell>{item.NgayKham}</TableListCell>
+                  <TableListCell>
+                    <Button onClick={() => handleViewDetail(item._id)}>
+                      Xem
+                    </Button>
+                  </TableListCell>
+                </TableListRow>
+              ))}
           </tbody>
         </TableList>
       </Container>
@@ -183,97 +214,93 @@ const Benhan = () => {
         open={showDetail}
         onClose={handleCloseDetail}
         aria-labelledby="draggable-dialog-title"
-        fullWidth={true} // Đảm bảo dialog chiếm toàn bộ chiều rộng
-        maxWidth="md" // Giới hạn chiều rộng tối đa
+        fullWidth={true}
+        maxWidth="md"
       >
         <DialogTitle id="draggable-dialog-title">
           KẾT QUẢ KHÁM BỆNH CHI TIẾT
         </DialogTitle>
         <DialogContent>
-          <InfoRow>
-            <InfoItem>
-              <Label>Tên bệnh nhân:</Label>
-              <div>Phạm Ngọc Duy</div>
-            </InfoItem>
-            <InfoItem>
-              <Label>Mã BN:</Label>
-              <div>10392</div>
-            </InfoItem>
-          </InfoRow>
-          <InfoRow>
-            <InfoItem>
-              <Label>Tuổi:</Label>
-              <div>20</div>
-            </InfoItem>
-            <InfoItem>
-              <Label>Giới tính:</Label>
-              <div>Nam</div>
-            </InfoItem>
-          </InfoRow>
-          <InfoRow>
-            <InfoItem>
-              <Label>Địa chỉ:</Label>
-              <div>Q8, TP. HCM</div>
-            </InfoItem>
-          </InfoRow>
-          <InfoRow>
-            <InfoItem>
-              <Label>Tên bác sĩ:</Label>
-              <div>Bác sĩ Trần Thị Bích</div>
-            </InfoItem>
-          </InfoRow>
-          <InfoRow>
-            <InfoItem>
-              <Label>Chuẩn đoán:</Label>
-              <div>
-                Ai mà biết chời, mua bằng chứ hong phải tự học nên hong biết bị
-                gì hết, còn thuốc là kê đại á!
-              </div>
-            </InfoItem>
-          </InfoRow>
+          {dataBenhNhanDetail ? (
+            <>
+              <InfoRow>
+                <InfoItem>
+                  <Label>Tên bệnh nhân:</Label>
+                  <div>{dataBenhNhanDetail.MaBenhNhan?.Ten}</div>
+                </InfoItem>
+                <InfoItem>
+                  <Label>Mã BN:</Label>
+                  <div>{dataBenhNhanDetail.MaBenhNhan?._id}</div>
+                </InfoItem>
+              </InfoRow>
+              <InfoRow>
+                <InfoItem>
+                  <Label>Tên bác sĩ:</Label>
+                  <div>{dataBenhNhanDetail.MaNhanVien?.HoTen}</div>
+                </InfoItem>
+              </InfoRow>
+              <InfoRow>
+                <InfoItem>
+                  <Label>Ngày sinh:</Label>
+                  <div>{dataBenhNhanDetail.MaBenhNhan?.NgaySinh}</div>
+                </InfoItem>
+                <InfoItem>
+                  <Label>Giới tính:</Label>
+                  <div>{dataBenhNhanDetail.MaBenhNhan?.GioiTinh}</div>
+                </InfoItem>
+              </InfoRow>
+              <InfoRow>
+                <InfoItem>
+                  <Label>Địa chỉ:</Label>
+                  <div>{dataBenhNhanDetail.MaBenhNhan?.DiaChi}</div>
+                </InfoItem>
+              </InfoRow>
 
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableHeader>STT</TableHeader>
-                <TableHeader>Tên thuốc / Hàm lượng</TableHeader>
-                <TableHeader>ĐVT</TableHeader>
-                <TableHeader>Số lượng</TableHeader>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>1</TableCell>
-                <TableCell>Paracetamol 500mg</TableCell>
-                <TableCell>Viên</TableCell>
-                <TableCell>20</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>2</TableCell>
-                <TableCell>Amoxicillin 250mg</TableCell>
-                <TableCell>Viên</TableCell>
-                <TableCell>15</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>3</TableCell>
-                <TableCell>Ibuprofen 400mg</TableCell>
-                <TableCell>Viên</TableCell>
-                <TableCell>10</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>4</TableCell>
-                <TableCell>Ciprofloxacin 500mg</TableCell>
-                <TableCell>Viên</TableCell>
-                <TableCell>5</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>5</TableCell>
-                <TableCell>Vitamin C 1000mg</TableCell>
-                <TableCell>Viên</TableCell>
-                <TableCell>30</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+              <InfoRow>
+                <InfoItem>
+                  <Label>Chuẩn đoán:</Label>
+                  <div>{dataBenhNhanDetail.ChanDoan}</div>
+                </InfoItem>
+              </InfoRow>
+              <InfoRow>
+                <InfoItem>
+                  <Label>Lời dặn:</Label>
+                  <div>{dataBenhNhanDetail.LoiDan}</div>
+                </InfoItem>
+              </InfoRow>
+              <InfoRow>
+                <InfoItem style={{ display: "inline-flex" }}>
+                  <Label>QR hóa đơn:</Label>
+                  <div>
+                    <QRCodeComponent url={dataBenhNhanDetail.pdf_hoadon} />
+                  </div>
+                </InfoItem>
+              </InfoRow>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableHeader>STT</TableHeader>
+                    <TableHeader>Tên thuốc / Hàm lượng</TableHeader>
+                    <TableHeader>ĐVT</TableHeader>
+                    <TableHeader>Số lượng</TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {dataThuocDetail &&
+                    dataThuocDetail.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{item.tenthuoc}</TableCell>
+                        <TableCell>{item.loaiThuoc}</TableCell>
+                        <TableCell>{item.soluong}</TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDetail} color="primary">

@@ -110,6 +110,7 @@ const LichHenKham = () => {
         TenBacSi: res.data.data.data.tenbs,
         NgayKham: res.data.data.data.ngaykham,
         CaKham: res.data.data.data.cakham,
+        pdf_url: res.data.data.data.url,
       });
       setOpenDialog(true); // Mở Dialog khi nhận dữ liệu thành công
     } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 
-const QRCodeComponent = () => {
+const QRCodeComponent = ({ url }) => {
   const [patientData, setPatientData] = useState({
     name: "Phạm Ngọc Duy",
     gender: "Nam",
@@ -11,7 +11,7 @@ const QRCodeComponent = () => {
   });
 
   const generateQRCodeData = () => {
-    return "https://www.google.com/maps/@10.8691456,106.594304,14z?entry=ttu&g_ep=EgoyMDI0MTAxNi4wIKXMDSoASAFQAw%3D%3D";
+    return url;
   };
 
   return (

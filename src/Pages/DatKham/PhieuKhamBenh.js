@@ -21,7 +21,7 @@ const PhieuKham = ({ appointment }) => {
       <div className="barcode">
         {/* Chèn mã vạch ở đây nếu có */}
         <div className="barcode-placeholder">
-          <QRCodeComponent />
+          <QRCodeComponent url={appointment.pdf_url} />
         </div>
       </div>
 
