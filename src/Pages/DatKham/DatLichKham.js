@@ -104,7 +104,7 @@ const DatLichKham = () => {
   const fecthdata = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8080/user/thongtindatkham",
+        "https://backend-datkhambenh.onrender.com/user/thongtindatkham",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -152,7 +152,7 @@ const DatLichKham = () => {
   const handleSearchClick = async () => {
     try {
       const res = await axios.put(
-        "http://localhost:8080/user/timlichkham",
+        "https://backend-datkhambenh.onrender.com/user/timlichkham",
         {
           BacSiID: doctor.id,
         },
@@ -202,14 +202,17 @@ const DatLichKham = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await axios.put("http://localhost:8080/user/datkham", {
-        MaNV: doctor.id,
-        MaBN: user.id,
-        MaKhoa: clinic.id,
-        NgayDat: dataPhieu.ngayKham,
-        CaKham: dataPhieu.caKham,
-        TrieuChung: symptoms,
-      });
+      const res = await axios.put(
+        "https://backend-datkhambenh.onrender.com/user/datkham",
+        {
+          MaNV: doctor.id,
+          MaBN: user.id,
+          MaKhoa: clinic.id,
+          NgayDat: dataPhieu.ngayKham,
+          CaKham: dataPhieu.caKham,
+          TrieuChung: symptoms,
+        }
+      );
       console.log(res);
       setSnackbarMessage(res.data.message);
       setSnackbarSeverity("success");

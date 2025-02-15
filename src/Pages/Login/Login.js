@@ -51,10 +51,13 @@ const Login = () => {
   const handleLogin = async () => {
     console.log(`email: ${email} | password: ${password}`);
     try {
-      const response = await axios.post("http://localhost:8080/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://backend-datkhambenh.onrender.com/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
 
       console.log(response);
       // Hiển thị thông báo thành công

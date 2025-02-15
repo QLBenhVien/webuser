@@ -34,7 +34,7 @@ const ChiTietLichKham = () => {
   const fetchData = async () => {
     try {
       const res = await axios.put(
-        "http://localhost:8080/user/xemchitietlichkham",
+        "https://backend-datkhambenh.onrender.com/user/xemchitietlichkham",
         {
           idLichKham: id,
         },

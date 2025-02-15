@@ -28,7 +28,7 @@ function TaiKhoanUpdate() {
     // Logic cho nút Lưu thay đổi
     try {
       const res = await axios.put(
-        "http://localhost:8080/user/updateMyAccountInfo",
+        "https://backend-datkhambenh.onrender.com/user/updateMyAccountInfo",
         {
           username: user.name,
         },

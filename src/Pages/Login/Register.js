@@ -26,12 +26,15 @@ const Register = () => {
       `email: ${email} | password: ${password} | username: ${username}`
     );
     try {
-      const response = await axios.post("http://localhost:8080/register", {
-        email: email,
-        password: password,
-        username: username,
-        role: "KH",
-      });
+      const response = await axios.post(
+        "https://backend-datkhambenh.onrender.com/register",
+        {
+          email: email,
+          password: password,
+          username: username,
+          role: "KH",
+        }
+      );
 
       console.log(response);
       localStorage.setItem("registerSuccess", "true");

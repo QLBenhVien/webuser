@@ -25,7 +25,7 @@ const Register = () => {
     console.log(`email: ${email} | password: ${password} `);
     try {
       const response = await axios.put(
-        "http://localhost:8080/user/resetpassword",
+        "https://backend-datkhambenh.onrender.com/user/resetpassword",
         {
           email: email,
           matkhau: password,
