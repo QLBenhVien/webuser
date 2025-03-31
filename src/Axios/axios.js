@@ -3,7 +3,8 @@ import axios from "axios";
 
 // Tạo một instance của axios
 const axiosInstance = axios.create({
-  baseURL: "https://backend-datkhambenh.onrender.com", // URL gốc của API
+  // baseURL: "https://backend-datkhambenh.onrender.com", // URL gốc của API
+  baseURL: "http://localhost:8080", // URL gốc của API
   timeout: 10000, // Giới hạn thời gian cho mỗi request
   headers: {
     "Content-Type": "application/json",

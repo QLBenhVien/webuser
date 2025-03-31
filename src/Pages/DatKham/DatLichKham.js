@@ -104,7 +104,7 @@ const DatLichKham = () => {
   const fecthdata = async () => {
     try {
       const res = await axios.get(
-        "https://backend-datkhambenh.onrender.com/user/thongtindatkham",
+        "http://localhost:8080/user/thongtindatkham",
         {
           headers: {
             Authorization: `Bearer ${token}`,
